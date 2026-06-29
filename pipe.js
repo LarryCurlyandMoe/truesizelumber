@@ -25,7 +25,7 @@ const PIPE = {
     uses: "Large flow, drainage"
   },
   "1.5 pvc": { 
-    display: "1½\" PVC",
+    display: "1Â½\" PVC",
     nominal: "1.5\"",
     actualOD: "1.900\"",
     actualID: "1.500\"",
@@ -89,7 +89,7 @@ const PIPE = {
     uses: "Piping, irrigation, industrial"
   },
   "1.5 schedule40": { 
-    display: "1½\" Schedule 40 Steel",
+    display: "1Â½\" Schedule 40 Steel",
     nominal: "1.5\"",
     actualOD: "1.900\"",
     actualID: "1.610\"",
