@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrueSizeLumber — Nominal vs Actual Lumber Sizes</title>
-<meta name="description" content="A 2x4 is actually 1½ x 3½ inches. Look up the real dimensions of any nominal lumber size, plus calculators for board feet and project coverage.">
+<title>TrueSizeLumber â€” Nominal vs Actual Lumber Sizes</title>
+<meta name="description" content="Find actual vs nominal sizes for lumber (2x4 = 1.5\" Ã— 3.5\"), fasteners (nail penny system, bolt specs), and pipe (PVC, copper, steel). Free reference with calculators.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -34,9 +34,9 @@
 
 <div class="hero">
   <div>
-    <div class="eyebrow">Nominal ≠ Actual</div>
-    <h1>A 2×4 isn't <span class="accent">2 inches</span> by 4 inches.</h1>
-    <p>It's actually 1½" × 3½". Lumber is named by its rough-cut size before drying and planing shrink it down. Pick a size below to see the real dimensions — no jargon, no guessing.</p>
+    <div class="eyebrow">Nominal â‰  Actual</div>
+    <h1>A 2Ã—4 isn't <span class="accent">2 inches</span> by 4 inches.</h1>
+    <p>It's actually 1Â½" Ã— 3Â½". Lumber is named by its rough-cut size before drying and planing shrink it down. Pick a size below to see the real dimensions â€” no jargon, no guessing.</p>
   </div>
   <div class="ruler-wrap">
     <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
@@ -49,12 +49,12 @@
       <line x1="78" y1="172" x2="202" y2="172" stroke="#C44E1F" stroke-width="1.5"/>
       <line x1="78" y1="167" x2="78" y2="177" stroke="#C44E1F" stroke-width="1.5"/>
       <line x1="202" y1="167" x2="202" y2="177" stroke="#C44E1F" stroke-width="1.5"/>
-      <text x="140" y="190" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="600" fill="#C44E1F">ACTUAL 3½"</text>
-      <text x="270" y="95" font-family="Oswald" font-size="13" fill="#3A2A1D" font-weight="600">½" lost</text>
+      <text x="140" y="190" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="600" fill="#C44E1F">ACTUAL 3Â½"</text>
+      <text x="270" y="95" font-family="Oswald" font-size="13" fill="#3A2A1D" font-weight="600">Â½" lost</text>
       <text x="270" y="112" font-family="Source Sans 3" font-size="11" fill="#2B2724">to milling +</text>
       <text x="270" y="126" font-family="Source Sans 3" font-size="11" fill="#2B2724">drying</text>
     </svg>
-    <div class="ruler-caption">DASHED = WHAT IT'S CALLED · SOLID = WHAT YOU GET</div>
+    <div class="ruler-caption">DASHED = WHAT IT'S CALLED Â· SOLID = WHAT YOU GET</div>
   </div>
 </div>
 
@@ -93,10 +93,10 @@
   <div class="result">
     <div class="result-fact">
       <div class="nominal-label">Nominal Size (what it's called)</div>
-      <div class="nominal-val" id="nominalOut">2×4</div>
+      <div class="nominal-val" id="nominalOut">2Ã—4</div>
       <div class="actual-label">Actual Size (what you measure)</div>
-      <div class="actual-val" id="actualOut">1½" × 3½"</div>
-      <p style="margin-top:18px; font-size:14px;"><a id="fullPageLink" href="2x4-actual-size.html">View full guide & calculators for this size →</a></p>
+      <div class="actual-val" id="actualOut">1Â½" Ã— 3Â½"</div>
+      <p style="margin-top:18px; font-size:14px;"><a id="fullPageLink" href="2x4-actual-size.html">View full guide & calculators for this size â†’</a></p>
     </div>
     <div class="result-diagram" id="diagramOut"></div>
   </div>
@@ -162,7 +162,7 @@
 <section id="table">
   <div class="section-head">
     <h2>Full reference chart</h2>
-    <div class="section-note">DIMENSIONAL SOFTWOOD LUMBER · INCHES</div>
+    <div class="section-note">DIMENSIONAL SOFTWOOD LUMBER Â· INCHES</div>
   </div>
   <table>
     <thead>
@@ -173,13 +173,13 @@
 </section>
 
 <footer>
-  TrueSizeLumber — actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
+  TrueSizeLumber â€” actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
   Standard softwood dimensions per the American Softwood Lumber Standard. Always confirm against your specific supplier for critical work.
 </footer>
 
 <script src="data.js"></script>
-<script src="data/fasteners.js"></script>
-<script src="data/pipe.js"></script>
+<script src="fasteners.js"></script>
+<script src="pipe.js"></script>
 <script>
   // ===== Category Management =====
   let currentCategory = "all";
@@ -294,17 +294,17 @@
     let detailsHtml = "";
     if (category === "lumber") {
       const s = item;
-      document.getElementById("actualOut").textContent = `${s.tFrac}" × ${s.wFrac}"`;
+      document.getElementById("actualOut").textContent = `${s.tFrac}" Ã— ${s.wFrac}"`;
       document.getElementById("diagramOut").innerHTML = diagramSVG(s);
-      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-lumber.html">View full specs for this size →</a></p>`;
+      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-lumber.html">View full specs for this size â†’</a></p>`;
     } else if (category === "fastener") {
       document.getElementById("actualOut").textContent = item.uses || "";
       document.getElementById("diagramOut").innerHTML = `<div style="text-align:center; padding:20px;"><strong>${item.display}</strong></div>`;
-      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-fastener.html">View specs for this fastener →</a></p>`;
+      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-fastener.html">View specs for this fastener â†’</a></p>`;
     } else if (category === "pipe") {
       document.getElementById("actualOut").textContent = `OD: ${item.actualOD}, ID: ${item.actualID}`;
       document.getElementById("diagramOut").innerHTML = `<div style="text-align:center; padding:20px;"><strong>${item.material}</strong></div>`;
-      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-pipe.html">View specs for this pipe →</a></p>`;
+      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-pipe.html">View specs for this pipe â†’</a></p>`;
     }
 
     // Update link (if fullPageLink exists)
