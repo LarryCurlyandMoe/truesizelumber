@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrueSizeLumber — Nominal vs Actual Lumber Sizes</title>
+<meta name="description" content="A 2x4 is actually 1½ x 3½ inches. Look up the real dimensions of any nominal lumber size, plus calculators for board feet and project coverage.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KN65R6DJW8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KN65R6DJW8');
+</script>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">True<span>Size</span>Lumber</a>
+  <nav>
+    <a href="#search">Search</a>
+    <a href="#categories">Categories</a>
+    <a href="#table">Reference</a>
+    <a href="why-lumber-isnt-the-size-it-says.html">Why?</a>
+    <a href="guides-board-feet.html">Board Feet</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div>
+    <div class="eyebrow">Nominal ≠ Actual</div>
+    <h1>A 2×4 isn't <span class="accent">2 inches</span> by 4 inches.</h1>
+    <p>It's actually 1½" × 3½". Lumber is named by its rough-cut size before drying and planing shrink it down. Pick a size below to see the real dimensions — no jargon, no guessing.</p>
+  </div>
+  <div class="ruler-wrap">
+    <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+      <rect x="60" y="40" width="160" height="120" fill="none" stroke="#3D5A73" stroke-width="2" stroke-dasharray="6,5"/>
+      <rect x="78" y="58" width="124" height="84" fill="#E8622C" opacity="0.85"/>
+      <line x1="60" y1="25" x2="220" y2="25" stroke="#3D5A73" stroke-width="1.5"/>
+      <line x1="60" y1="20" x2="60" y2="30" stroke="#3D5A73" stroke-width="1.5"/>
+      <line x1="220" y1="20" x2="220" y2="30" stroke="#3D5A73" stroke-width="1.5"/>
+      <text x="140" y="16" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#3D5A73">NOMINAL 4"</text>
+      <line x1="78" y1="172" x2="202" y2="172" stroke="#C44E1F" stroke-width="1.5"/>
+      <line x1="78" y1="167" x2="78" y2="177" stroke="#C44E1F" stroke-width="1.5"/>
+      <line x1="202" y1="167" x2="202" y2="177" stroke="#C44E1F" stroke-width="1.5"/>
+      <text x="140" y="190" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="600" fill="#C44E1F">ACTUAL 3½"</text>
+      <text x="270" y="95" font-family="Oswald" font-size="13" fill="#3A2A1D" font-weight="600">½" lost</text>
+      <text x="270" y="112" font-family="Source Sans 3" font-size="11" fill="#2B2724">to milling +</text>
+      <text x="270" y="126" font-family="Source Sans 3" font-size="11" fill="#2B2724">drying</text>
+    </svg>
+    <div class="ruler-caption">DASHED = WHAT IT'S CALLED · SOLID = WHAT YOU GET</div>
+  </div>
+</div>
+
+<section id="search">
+  <div class="section-head">
+    <h2>Find a size</h2>
+    <div class="section-note">SEARCH LUMBER, FASTENERS & PIPE</div>
+  </div>
+  <div class="search-container">
+    <input type="text" id="searchBox" class="search-input" placeholder="Search: 2x4, bolt, pvc, 1/2 inch..." />
+    <div id="searchResults" class="search-results"></div>
+  </div>
+</section>
+
+<section id="categories">
+  <div class="section-head">
+    <h2>Browse by category</h2>
+    <div class="section-note">LUMBER, FASTENERS & PIPE</div>
+  </div>
+  <div class="category-buttons">
+    <button class="category-btn active" data-category="all">All Products</button>
+    <button class="category-btn" data-category="lumber">Lumber</button>
+    <button class="category-btn" data-category="fastener">Fasteners</button>
+    <button class="category-btn" data-category="pipe">Pipe</button>
+  </div>
+</section>
+
+<section id="lookup">
+  <div class="section-head">
+    <h2>Pick a size</h2>
+    <div class="section-note">TAP A SIZE FOR ITS ACTUAL DIMENSIONS</div>
+  </div>
+
+  <div class="size-grid" id="sizeGrid"></div>
+
+  <div class="result">
+    <div class="result-fact">
+      <div class="nominal-label">Nominal Size (what it's called)</div>
+      <div class="nominal-val" id="nominalOut">2×4</div>
+      <div class="actual-label">Actual Size (what you measure)</div>
+      <div class="actual-val" id="actualOut">1½" × 3½"</div>
+      <p style="margin-top:18px; font-size:14px;"><a id="fullPageLink" href="2x4-actual-size.html">View full guide & calculators for this size →</a></p>
+    </div>
+    <div class="result-diagram" id="diagramOut"></div>
+  </div>
+</section>
+
+<section id="calculators">
+  <div class="section-head">
+    <h2>Project calculators</h2>
+    <div class="section-note">USES ACTUAL DIMENSIONS, NOT NOMINAL</div>
+  </div>
+
+  <div class="calc-grid">
+    <div class="calc-card">
+      <h3>Deck board coverage</h3>
+      <div class="calc-sub">How many boards to cover a given deck area, accounting for actual board width and gap spacing.</div>
+      <div class="field-row">
+        <div class="field">
+          <label for="deckSize">Board size</label>
+          <select id="deckSize"></select>
+        </div>
+        <div class="field">
+          <label for="deckLength">Board length (ft)</label>
+          <input type="number" id="deckLength" value="12" min="1" step="0.5">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="deckWidth">Deck width (ft)</label>
+          <input type="number" id="deckWidth" value="10" min="1" step="0.5">
+        </div>
+        <div class="field">
+          <label for="deckGap">Gap between boards (in)</label>
+          <input type="number" id="deckGap" value="0.125" min="0" step="0.0625">
+        </div>
+      </div>
+      <div class="calc-output" id="deckOut"></div>
+    </div>
+
+    <div class="calc-card">
+      <h3>Board feet calculator</h3>
+      <div class="calc-sub">Uses actual thickness and width to compute true board feet for pricing or ordering.</div>
+      <div class="field-row">
+        <div class="field">
+          <label for="bfSize">Board size</label>
+          <select id="bfSize"></select>
+        </div>
+        <div class="field">
+          <label for="bfLength">Length (ft)</label>
+          <input type="number" id="bfLength" value="8" min="0.5" step="0.5">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="bfQty">Quantity (# of boards)</label>
+          <input type="number" id="bfQty" value="1" min="1" step="1">
+        </div>
+      </div>
+      <div class="calc-output" id="bfOut"></div>
+    </div>
+  </div>
+</section>
+
+<section id="table">
+  <div class="section-head">
+    <h2>Full reference chart</h2>
+    <div class="section-note">DIMENSIONAL SOFTWOOD LUMBER · INCHES</div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Nominal Size</th><th>Actual Size</th><th>Actual (decimal)</th></tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+</section>
+
+<footer>
+  TrueSizeLumber — actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
+  Standard softwood dimensions per the American Softwood Lumber Standard. Always confirm against your specific supplier for critical work.
+</footer>
+
+<script src="data.js"></script>
+<script src="data/fasteners.js"></script>
+<script src="data/pipe.js"></script>
+<script>
+  // ===== Category Management =====
+  let currentCategory = "all";
+  let allData = {
+    lumber: SIZES,
+    fastener: FASTENERS,
+    pipe: PIPE
+  };
+
+  // Sanitize key for filename
+  function sanitizeKey(key) {
+    return key.replace(/\//g, "-").replace(/\s+/g, "-").toLowerCase();
+  }
+
+  // Get all items for a category
+  function getItemsForCategory(cat) {
+    if (cat === "all") {
+      const all = {};
+      Object.assign(all, SIZES);
+      Object.assign(all, FASTENERS);
+      Object.assign(all, PIPE);
+      return all;
+    }
+    return allData[cat] || {};
+  }
+
+  // ===== Search Functionality =====
+  const searchBox = document.getElementById("searchBox");
+  const searchResults = document.getElementById("searchResults");
+
+  searchBox.addEventListener("input", () => {
+    const query = searchBox.value.toLowerCase().trim();
+    
+    if (query.length === 0) {
+      searchResults.innerHTML = "";
+      return;
+    }
+
+    const results = [];
+    const items = getItemsForCategory(currentCategory);
+
+    Object.keys(items).forEach((key) => {
+      const item = items[key];
+      const display = item.display || key;
+      const text = (display + " " + key).toLowerCase();
+
+      if (text.includes(query)) {
+        // Determine category from data
+        let cat = "lumber";
+        if (key in FASTENERS) cat = "fastener";
+        if (key in PIPE) cat = "pipe";
+
+        results.push({
+          key,
+          display,
+          category: cat,
+          link: `${sanitizeKey(key)}-${cat}.html`
+        });
+      }
+    });
+
+    // Display results
+    searchResults.innerHTML = results
+      .map((r) => {
+        const catLabel = r.category.charAt(0).toUpperCase() + r.category.slice(1);
+        return `<a href="${r.link}" class="search-result-item ${r.category}" title="${catLabel}">${r.display}</a>`;
+      })
+      .join("");
+  });
+
+  // ===== Category Filter Buttons =====
+  document.querySelectorAll(".category-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".category-btn").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentCategory = btn.dataset.category;
+      searchResults.innerHTML = ""; // Clear search
+      searchBox.value = "";
+      rebuildSizeGrid();
+    });
+  });
+
+  // ===== Rebuild size grid for current category =====
+  function rebuildSizeGrid() {
+    const grid = document.getElementById("sizeGrid");
+    grid.innerHTML = "";
+    const items = getItemsForCategory(currentCategory);
+
+    Object.keys(items).forEach((key) => {
+      const btn = document.createElement("button");
+      btn.className = "size-btn";
+      btn.textContent = items[key].display || key;
+      btn.dataset.key = key;
+      btn.addEventListener("click", () => selectSize(key, currentCategory));
+      grid.appendChild(btn);
+    });
+  }
+
+  // ===== Update result display =====
+  function selectSize(key, category) {
+    document.querySelectorAll(".size-btn").forEach((b) => {
+      b.classList.toggle("active", b.dataset.key === key);
+    });
+
+    const items = allData[category] || {};
+    const item = items[key];
+    if (!item) return;
+
+    const display = item.display || key;
+    document.getElementById("nominalOut").textContent = display;
+
+    let detailsHtml = "";
+    if (category === "lumber") {
+      const s = item;
+      document.getElementById("actualOut").textContent = `${s.tFrac}" × ${s.wFrac}"`;
+      document.getElementById("diagramOut").innerHTML = diagramSVG(s);
+      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-lumber.html">View full specs for this size →</a></p>`;
+    } else if (category === "fastener") {
+      document.getElementById("actualOut").textContent = item.uses || "";
+      document.getElementById("diagramOut").innerHTML = `<div style="text-align:center; padding:20px;"><strong>${item.display}</strong></div>`;
+      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-fastener.html">View specs for this fastener →</a></p>`;
+    } else if (category === "pipe") {
+      document.getElementById("actualOut").textContent = `OD: ${item.actualOD}, ID: ${item.actualID}`;
+      document.getElementById("diagramOut").innerHTML = `<div style="text-align:center; padding:20px;"><strong>${item.material}</strong></div>`;
+      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-pipe.html">View specs for this pipe →</a></p>`;
+    }
+
+    // Update link (if fullPageLink exists)
+    const linkElement = document.getElementById("fullPageLink");
+    if (linkElement && linkElement.parentElement) {
+      linkElement.parentElement.innerHTML = detailsHtml;
+    }
+  }
+
+  // ===== Init =====
+  rebuildSizeGrid();
+  selectSize(Object.keys(SIZES)[0], "lumber");
+  
+  // Update lumber calculators if functions exist
+  if (typeof updateDeck === 'function') updateDeck();
+  if (typeof updateBF === 'function') updateBF();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4×4 Actual Size — What a 4×4 Really Measures | TrueSizeLumber</title>
+<meta name="description" content="A nominal 4×4 board actually measures 3½" × 3½". See the exact dimensions, why it differs from the nominal size, and calculate how many you need for your project.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KN65R6DJW8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KN65R6DJW8');
+</script>
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo">True<span>Size</span>Lumber</a>
+  <nav>
+    <a href="index.html#lookup">Size Lookup</a>
+    <a href="index.html#calculators">Calculators</a>
+    <a href="index.html#table">Full Chart</a>
+  </nav>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> / 4×4 Actual Size</div>
+
+<div class="hero">
+  <div>
+    <div class="eyebrow">Nominal 4×4 → Actual 3½" × 3½"</div>
+    <h1>What size is a <span class="accent">4×4</span>, really?</h1>
+    <p>A 4×4 is sold and labeled as 4×4, but it actually measures <strong>3½" × 3½"</strong>. The difference comes from milling and drying — the board starts closer to its named size, then shrinks as it's surfaced smooth and dried to standard moisture content.</p>
+  </div>
+  <div class="ruler-wrap">
+    <div id="diagramOut"></div>
+    <div class="ruler-caption">DASHED = WHAT IT'S CALLED · SOLID = WHAT YOU GET</div>
+  </div>
+</div>
+
+<div class="quick-answer">
+  <div class="quick-answer-box">
+    A 4×4 is actually <span class="actual-big">3½" × 3½"</span> — not 4×4. Common uses include framing, structural support, and general construction.
+  </div>
+</div>
+
+<section id="calculators">
+  <div class="section-head">
+    <h2>How many 4×4s do you need?</h2>
+    <div class="section-note">USES ACTUAL WIDTH, NOT NOMINAL</div>
+  </div>
+  <div class="calc-grid">
+    <div class="calc-card">
+      <h3>Boards to span a width</h3>
+      <div class="calc-sub">Calculates how many 4×4 boards, laid edge to edge, are needed to cover a given width — using the real 3½" width plus any gap you leave between boards.</div>
+      <div class="field-row">
+        <div class="field">
+          <label for="spanWidth">Width to cover (ft)</label>
+          <input type="number" id="spanWidth" value="10" min="1" step="0.5">
+        </div>
+        <div class="field">
+          <label for="spanGap">Gap between boards (in)</label>
+          <input type="number" id="spanGap" value="0.125" min="0" step="0.0625">
+        </div>
+      </div>
+      <div class="calc-output" id="spanOut"></div>
+    </div>
+
+    <div class="calc-card">
+      <h3>Board feet</h3>
+      <div class="calc-sub">Uses the actual 3½" × 3½" dimensions to calculate true board feet for pricing or ordering.</div>
+      <div class="field-row">
+        <div class="field">
+          <label for="bfLength">Length (ft)</label>
+          <input type="number" id="bfLength" value="8" min="0.5" step="0.5">
+        </div>
+        <div class="field">
+          <label for="bfQty">Quantity</label>
+          <input type="number" id="bfQty" value="1" min="1" step="1">
+        </div>
+      </div>
+      <div class="calc-output" id="bfOut"></div>
+    </div>
+  </div>
+</section>
+
+<section id="table">
+  <div class="section-head">
+    <h2>4×4 vs. every other size</h2>
+    <div class="section-note">FULL REFERENCE CHART</div>
+  </div>
+  <table>
+    <thead><tr><th>Nominal Size</th><th>Actual Size</th><th>Actual (decimal)</th></tr></thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>Other sizes</h2>
+    <div class="section-note">JUMP TO ANOTHER NOMINAL SIZE</div>
+  </div>
+  <div class="related-grid">
+    <a class="related-link" href="1x2-lumber.html">
+      <span class="rl-nom">1x2</span>
+    </a>
+    <a class="related-link" href="1x4-lumber.html">
+      <span class="rl-nom">1x4</span>
+    </a>
+    <a class="related-link" href="1x6-lumber.html">
+      <span class="rl-nom">1x6</span>
+    </a>
+    <a class="related-link" href="1x8-lumber.html">
+      <span class="rl-nom">1x8</span>
+    </a>
+    <a class="related-link" href="1x10-lumber.html">
+      <span class="rl-nom">1x10</span>
+    </a>
+    <a class="related-link" href="1x12-lumber.html">
+      <span class="rl-nom">1x12</span>
+    </a>
+    <a class="related-link" href="2x2-lumber.html">
+      <span class="rl-nom">2x2</span>
+    </a>
+    <a class="related-link" href="2x4-lumber.html">
+      <span class="rl-nom">2x4</span>
+    </a>
+    <a class="related-link" href="2x6-lumber.html">
+      <span class="rl-nom">2x6</span>
+    </a>
+    <a class="related-link" href="2x8-lumber.html">
+      <span class="rl-nom">2x8</span>
+    </a>
+    <a class="related-link" href="2x10-lumber.html">
+      <span class="rl-nom">2x10</span>
+    </a>
+    <a class="related-link" href="2x12-lumber.html">
+      <span class="rl-nom">2x12</span>
+    </a>
+    <a class="related-link" href="4x4-lumber.html">
+      <span class="rl-nom">4x4</span>
+    </a>
+    <a class="related-link" href="6x6-lumber.html">
+      <span class="rl-nom">6x6</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  TrueSizeLumber — actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
+  Standard softwood dimensions per the American Softwood Lumber Standard. Always confirm against your specific supplier for critical work.
+</footer>
+
+<script src="data.js"></script>
+<script>
+  const KEY = "4x4";
+  document.getElementById("diagramOut").innerHTML = diagramSVG(SIZES[KEY]);
+  buildReferenceTable(document.getElementById("tableBody"), KEY);
+
+  function updateSpan(){
+    const widthFt = parseFloat(document.getElementById("spanWidth").value) || 0;
+    const gapIn = parseFloat(document.getElementById("spanGap").value) || 0;
+    const r = calcBoardsForWidth(KEY, widthFt, gapIn);
+    document.getElementById("spanOut").innerHTML =
+      `<span class="big">${r.boardsNeeded} boards</span>` +
+      `4×4 boards using actual width 3½" + ${gapIn}" gap.<br>` +
+      `Covers ≈ ${r.coverage.toFixed(2)} ft — round up for waste and end trimming.`;
+  }
+  document.getElementById("spanWidth").addEventListener("input", updateSpan);
+  document.getElementById("spanGap").addEventListener("input", updateSpan);
+  updateSpan();
+
+  function updateBF(){
+    const lengthFt = parseFloat(document.getElementById("bfLength").value) || 0;
+    const qty = parseFloat(document.getElementById("bfQty").value) || 0;
+    const r = calcBoardFeet(KEY, lengthFt, qty);
+    document.getElementById("bfOut").innerHTML =
+      `<span class="big">${r.totalBf.toFixed(2)} board ft</span>` +
+      `${qty} × 4×4 @ ${lengthFt}ft, using actual 3½" × 3½".<br>` +
+      `(${r.bfPerBoard.toFixed(2)} bf per board — based on actual size, not nominal.)`;
+  }
+  document.getElementById("bfLength").addEventListener("input", updateBF);
+  document.getElementById("bfQty").addEventListener("input", updateBF);
+  updateBF();
+</script>
+</body>
+</html>
