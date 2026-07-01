@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrueSizeLumber â€” Nominal vs Actual Lumber Sizes</title>
-<meta name="description" content="Find actual vs nominal sizes for lumber (2x4 = 1.5\" Ã— 3.5\"), fasteners (nail penny system, bolt specs), and pipe (PVC, copper, steel). Free reference with calculators.">
+<title>TrueSizeLumber — Nominal vs Actual Lumber Sizes</title>
+<meta name="description" content="Find actual vs nominal sizes for lumber (2x4 = 1.5\" × 3.5\"), fasteners (nail penny system, bolt specs), and pipe (PVC, copper, steel). Free reference with calculators.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -34,9 +34,9 @@
 
 <div class="hero">
   <div>
-    <div class="eyebrow">Nominal â‰  Actual</div>
-    <h1>A 2Ã—4 isn't <span class="accent">2 inches</span> by 4 inches.</h1>
-    <p>It's actually 1Â½" Ã— 3Â½". Lumber is named by its rough-cut size before drying and planing shrink it down. Pick a size below to see the real dimensions â€” no jargon, no guessing.</p>
+    <div class="eyebrow">Nominal ≠ Actual</div>
+    <h1>A 2×4 isn't <span class="accent">2 inches</span> by 4 inches.</h1>
+    <p>It's actually 1½" × 3½". Lumber is named by its rough-cut size before drying and planing shrink it down. Pick a size below to see the real dimensions — no jargon, no guessing.</p>
   </div>
   <div class="ruler-wrap">
     <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
@@ -49,12 +49,12 @@
       <line x1="78" y1="172" x2="202" y2="172" stroke="#C44E1F" stroke-width="1.5"/>
       <line x1="78" y1="167" x2="78" y2="177" stroke="#C44E1F" stroke-width="1.5"/>
       <line x1="202" y1="167" x2="202" y2="177" stroke="#C44E1F" stroke-width="1.5"/>
-      <text x="140" y="190" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="600" fill="#C44E1F">ACTUAL 3Â½"</text>
-      <text x="270" y="95" font-family="Oswald" font-size="13" fill="#3A2A1D" font-weight="600">Â½" lost</text>
+      <text x="140" y="190" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="600" fill="#C44E1F">ACTUAL 3½"</text>
+      <text x="270" y="95" font-family="Oswald" font-size="13" fill="#3A2A1D" font-weight="600">½" lost</text>
       <text x="270" y="112" font-family="Source Sans 3" font-size="11" fill="#2B2724">to milling +</text>
       <text x="270" y="126" font-family="Source Sans 3" font-size="11" fill="#2B2724">drying</text>
     </svg>
-    <div class="ruler-caption">DASHED = WHAT IT'S CALLED Â· SOLID = WHAT YOU GET</div>
+    <div class="ruler-caption">DASHED = WHAT IT'S CALLED · SOLID = WHAT YOU GET</div>
   </div>
 </div>
 
@@ -93,10 +93,10 @@
   <div class="result">
     <div class="result-fact">
       <div class="nominal-label">Nominal Size (what it's called)</div>
-      <div class="nominal-val" id="nominalOut">2Ã—4</div>
+      <div class="nominal-val" id="nominalOut">2×4</div>
       <div class="actual-label">Actual Size (what you measure)</div>
-      <div class="actual-val" id="actualOut">1Â½" Ã— 3Â½"</div>
-      <p style="margin-top:18px; font-size:14px;"><a id="fullPageLink" href="2x4-actual-size.html">View full guide & calculators for this size â†’</a></p>
+      <div class="actual-val" id="actualOut">1½" × 3½"</div>
+      <p style="margin-top:18px; font-size:14px;"><a id="fullPageLink" href="2x4-actual-size.html">View full guide & calculators for this size →</a></p>
     </div>
     <div class="result-diagram" id="diagramOut"></div>
   </div>
@@ -162,7 +162,7 @@
 <section id="table">
   <div class="section-head">
     <h2>Full reference chart</h2>
-    <div class="section-note">DIMENSIONAL SOFTWOOD LUMBER Â· INCHES</div>
+    <div class="section-note">DIMENSIONAL SOFTWOOD LUMBER · INCHES</div>
   </div>
   <table>
     <thead>
@@ -173,49 +173,49 @@
 </section>
 
 <footer>
-  TrueSizeLumber â€” actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
+  TrueSizeLumber — actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
   Standard softwood dimensions per the American Softwood Lumber Standard. Always confirm against your specific supplier for critical work.
 </footer>
 
 <script>
   // ===== Shared lumber size data =====
   const SIZES = {
-    "1x2":  { t: 0.75, w: 1.5,   tFrac: "Â¾",  wFrac: "1Â½" },
-    "1x4":  { t: 0.75, w: 3.5,   tFrac: "Â¾",  wFrac: "3Â½" },
-    "1x6":  { t: 0.75, w: 5.5,   tFrac: "Â¾",  wFrac: "5Â½" },
-    "1x8":  { t: 0.75, w: 7.25,  tFrac: "Â¾",  wFrac: "7Â¼" },
-    "1x10": { t: 0.75, w: 9.25,  tFrac: "Â¾",  wFrac: "9Â¼" },
-    "1x12": { t: 0.75, w: 11.25, tFrac: "Â¾",  wFrac: "11Â¼" },
-    "2x2":  { t: 1.5,  w: 1.5,   tFrac: "1Â½", wFrac: "1Â½" },
-    "2x4":  { t: 1.5,  w: 3.5,   tFrac: "1Â½", wFrac: "3Â½" },
-    "2x6":  { t: 1.5,  w: 5.5,   tFrac: "1Â½", wFrac: "5Â½" },
-    "2x8":  { t: 1.5,  w: 7.25,  tFrac: "1Â½", wFrac: "7Â¼" },
-    "2x10": { t: 1.5,  w: 9.25,  tFrac: "1Â½", wFrac: "9Â¼" },
-    "2x12": { t: 1.5,  w: 11.25, tFrac: "1Â½", wFrac: "11Â¼" },
-    "4x4":  { t: 3.5,  w: 3.5,   tFrac: "3Â½", wFrac: "3Â½" },
-    "6x6":  { t: 5.5,  w: 5.5,   tFrac: "5Â½", wFrac: "5Â½" }
+    "1x2":  { t: 0.75, w: 1.5,   tFrac: "¾",  wFrac: "1½" },
+    "1x4":  { t: 0.75, w: 3.5,   tFrac: "¾",  wFrac: "3½" },
+    "1x6":  { t: 0.75, w: 5.5,   tFrac: "¾",  wFrac: "5½" },
+    "1x8":  { t: 0.75, w: 7.25,  tFrac: "¾",  wFrac: "7¼" },
+    "1x10": { t: 0.75, w: 9.25,  tFrac: "¾",  wFrac: "9¼" },
+    "1x12": { t: 0.75, w: 11.25, tFrac: "¾",  wFrac: "11¼" },
+    "2x2":  { t: 1.5,  w: 1.5,   tFrac: "1½", wFrac: "1½" },
+    "2x4":  { t: 1.5,  w: 3.5,   tFrac: "1½", wFrac: "3½" },
+    "2x6":  { t: 1.5,  w: 5.5,   tFrac: "1½", wFrac: "5½" },
+    "2x8":  { t: 1.5,  w: 7.25,  tFrac: "1½", wFrac: "7¼" },
+    "2x10": { t: 1.5,  w: 9.25,  tFrac: "1½", wFrac: "9¼" },
+    "2x12": { t: 1.5,  w: 11.25, tFrac: "1½", wFrac: "11¼" },
+    "4x4":  { t: 3.5,  w: 3.5,   tFrac: "3½", wFrac: "3½" },
+    "6x6":  { t: 5.5,  w: 5.5,   tFrac: "5½", wFrac: "5½" }
   };
 
   // ===== Fastener dimensions and data =====
   const FASTENERS = {
-    "1/4 bolt 3/4": { display: "1/4\" Ã— 3/4\" Bolt", diameter: "1/4\"", length: "3/4\"", uses: "General machinery, small fastening" },
-    "1/4 bolt 1": { display: "1/4\" Ã— 1\" Bolt", diameter: "1/4\"", length: "1\"", uses: "General fastening" },
-    "1/4 bolt 2": { display: "1/4\" Ã— 2\" Bolt", diameter: "1/4\"", length: "2\"", uses: "Structural, through-bolting" },
-    "3/8 bolt 1": { display: "3/8\" Ã— 1\" Bolt", diameter: "3/8\"", length: "1\"", uses: "Heavy machinery, structural" },
-    "3/8 bolt 2": { display: "3/8\" Ã— 2\" Bolt", diameter: "3/8\"", length: "2\"", uses: "Structural fastening, bridges" },
-    "1/2 bolt 1": { display: "1/2\" Ã— 1\" Bolt", diameter: "1/2\"", length: "1\"", uses: "Heavy structural, automotive" },
-    "1/2 bolt 2": { display: "1/2\" Ã— 2\" Bolt", diameter: "1/2\"", length: "2\"", uses: "Beams, heavy construction" },
-    "8 wood screw 1.25": { display: "#8 Wood Screw, 1Â¼\"", gauge: "8", length: "1.25\"", uses: "General woodworking, cabinets" },
-    "10 wood screw 1.5": { display: "#10 Wood Screw, 1Â½\"", gauge: "10", length: "1.5\"", uses: "Deck screws, framing" },
-    "12 wood screw 2.5": { display: "#12 Wood Screw, 2Â½\"", gauge: "12", length: "2.5\"", uses: "Deck boards, structural" },
+    "1/4 bolt 3/4": { display: "1/4\" × 3/4\" Bolt", diameter: "1/4\"", length: "3/4\"", uses: "General machinery, small fastening" },
+    "1/4 bolt 1": { display: "1/4\" × 1\" Bolt", diameter: "1/4\"", length: "1\"", uses: "General fastening" },
+    "1/4 bolt 2": { display: "1/4\" × 2\" Bolt", diameter: "1/4\"", length: "2\"", uses: "Structural, through-bolting" },
+    "3/8 bolt 1": { display: "3/8\" × 1\" Bolt", diameter: "3/8\"", length: "1\"", uses: "Heavy machinery, structural" },
+    "3/8 bolt 2": { display: "3/8\" × 2\" Bolt", diameter: "3/8\"", length: "2\"", uses: "Structural fastening, bridges" },
+    "1/2 bolt 1": { display: "1/2\" × 1\" Bolt", diameter: "1/2\"", length: "1\"", uses: "Heavy structural, automotive" },
+    "1/2 bolt 2": { display: "1/2\" × 2\" Bolt", diameter: "1/2\"", length: "2\"", uses: "Beams, heavy construction" },
+    "8 wood screw 1.25": { display: "#8 Wood Screw, 1¼\"", gauge: "8", length: "1.25\"", uses: "General woodworking, cabinets" },
+    "10 wood screw 1.5": { display: "#10 Wood Screw, 1½\"", gauge: "10", length: "1.5\"", uses: "Deck screws, framing" },
+    "12 wood screw 2.5": { display: "#12 Wood Screw, 2½\"", gauge: "12", length: "2.5\"", uses: "Deck boards, structural" },
     "16 wood screw 3": { display: "#16 Wood Screw, 3\"", gauge: "16", length: "3\"", uses: "Heavy deck, beams" },
     "10d nail": { display: "10d Common Nail (3.125\")", penny: "10", length: "3.125\"", uses: "General framing, rough construction" },
     "16d nail": { display: "16d Common Nail (3.5\")", penny: "16", length: "3.5\"", uses: "Heavy framing, structure" },
     "20d nail": { display: "20d Common Nail (4\")", penny: "20", length: "4\"", uses: "Structural framing, beams" },
     "1/4 anchor": { display: "1/4\" Drywall Anchor", diameter: "1/4\"", expandedDiameter: "3/4\"", uses: "Hanging items on drywall" },
     "3/8 anchor": { display: "3/8\" Drywall Anchor", diameter: "3/8\"", expandedDiameter: "1\"", uses: "Heavy items, drywall" },
-    "5/16 lag bolt 3": { display: "5/16\" Ã— 3\" Lag Bolt", diameter: "5/16\"", length: "3\"", uses: "Wood-to-wood, outdoor structure" },
-    "3/8 lag bolt 4": { display: "3/8\" Ã— 4\" Lag Bolt", diameter: "3/8\"", length: "4\"", uses: "Deck ledger, major fastening" },
+    "5/16 lag bolt 3": { display: "5/16\" × 3\" Lag Bolt", diameter: "5/16\"", length: "3\"", uses: "Wood-to-wood, outdoor structure" },
+    "3/8 lag bolt 4": { display: "3/8\" × 4\" Lag Bolt", diameter: "3/8\"", length: "4\"", uses: "Deck ledger, major fastening" },
     "1/4 rebar 24": { display: "1/4\" Rebar, 24\" length", diameter: "1/4\"", length: "24\"", uses: "Concrete reinforcement, light duty" },
     "3/8 rebar 36": { display: "3/8\" Rebar, 36\" length", diameter: "3/8\"", length: "36\"", uses: "Concrete reinforcement, standard" }
   };
@@ -225,7 +225,7 @@
     "1/2 pvc": { display: "1/2\" PVC", nominal: "1/2\"", actualOD: "0.840\"", actualID: "0.602\"", material: "PVC", uses: "Cold water, irrigation, DWV" },
     "3/4 pvc": { display: "3/4\" PVC", nominal: "3/4\"", actualOD: "1.050\"", actualID: "0.810\"", material: "PVC", uses: "Water supply, irrigation" },
     "1 pvc": { display: "1\" PVC", nominal: "1\"", actualOD: "1.315\"", actualID: "1.015\"", material: "PVC", uses: "Large flow, drainage" },
-    "1.5 pvc": { display: "1Â½\" PVC", nominal: "1.5\"", actualOD: "1.900\"", actualID: "1.500\"", material: "PVC", uses: "Major drainage, pools" },
+    "1.5 pvc": { display: "1½\" PVC", nominal: "1.5\"", actualOD: "1.900\"", actualID: "1.500\"", material: "PVC", uses: "Major drainage, pools" },
     "2 pvc": { display: "2\" PVC", nominal: "2\"", actualOD: "2.375\"", actualID: "1.939\"", material: "PVC", uses: "Large irrigation, drainage systems" },
     "1/2 copper": { display: "1/2\" Copper (Type M)", nominal: "1/2\"", actualOD: "0.625\"", actualID: "0.545\"", material: "Copper Type M", uses: "Plumbing, standard residential" },
     "3/4 copper": { display: "3/4\" Copper (Type M)", nominal: "3/4\"", actualOD: "0.875\"", actualID: "0.795\"", material: "Copper Type M", uses: "Main water line, plumbing" },
@@ -233,7 +233,7 @@
     "1/2 schedule40": { display: "1/2\" Schedule 40 Steel", nominal: "1/2\"", actualOD: "0.840\"", actualID: "0.622\"", material: "Steel Sch 40", uses: "Industrial, high pressure gas/air" },
     "3/4 schedule40": { display: "3/4\" Schedule 40 Steel", nominal: "3/4\"", actualOD: "1.050\"", actualID: "0.824\"", material: "Steel Sch 40", uses: "Industrial, compressed air" },
     "1 schedule40": { display: "1\" Schedule 40 Steel", nominal: "1\"", actualOD: "1.315\"", actualID: "1.049\"", material: "Steel Sch 40", uses: "Piping, irrigation, industrial" },
-    "1.5 schedule40": { display: "1Â½\" Schedule 40 Steel", nominal: "1.5\"", actualOD: "1.900\"", actualID: "1.610\"", material: "Steel Sch 40", uses: "Large diameter industrial" },
+    "1.5 schedule40": { display: "1½\" Schedule 40 Steel", nominal: "1.5\"", actualOD: "1.900\"", actualID: "1.610\"", material: "Steel Sch 40", uses: "Large diameter industrial" },
     "2 schedule40": { display: "2\" Schedule 40 Steel", nominal: "2\"", actualOD: "2.375\"", actualID: "2.067\"", material: "Steel Sch 40", uses: "Industrial applications, steam" },
     "3 schedule40": { display: "3\" Schedule 40 Steel", nominal: "3\"", actualOD: "3.500\"", actualID: "3.068\"", material: "Steel Sch 40", uses: "Large flow, industrial" },
     "4 schedule40": { display: "4\" Schedule 40 Steel", nominal: "4\"", actualOD: "4.500\"", actualID: "4.026\"", material: "Steel Sch 40", uses: "Major pipelines, large diameter" }
@@ -353,17 +353,17 @@
     let detailsHtml = "";
     if (category === "lumber") {
       const s = item;
-      document.getElementById("actualOut").textContent = `${s.tFrac}" Ã— ${s.wFrac}"`;
+      document.getElementById("actualOut").textContent = `${s.tFrac}" × ${s.wFrac}"`;
       document.getElementById("diagramOut").innerHTML = diagramSVG(s);
-      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-lumber.html">View full specs for this size â†’</a></p>`;
+      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-lumber.html">View full specs for this size →</a></p>`;
     } else if (category === "fastener") {
       document.getElementById("actualOut").textContent = item.uses || "";
       document.getElementById("diagramOut").innerHTML = `<div style="text-align:center; padding:20px;"><strong>${item.display}</strong></div>`;
-      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-fastener.html">View specs for this fastener â†’</a></p>`;
+      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-fastener.html">View specs for this fastener →</a></p>`;
     } else if (category === "pipe") {
       document.getElementById("actualOut").textContent = `OD: ${item.actualOD}, ID: ${item.actualID}`;
       document.getElementById("diagramOut").innerHTML = `<div style="text-align:center; padding:20px;"><strong>${item.material}</strong></div>`;
-      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-pipe.html">View specs for this pipe â†’</a></p>`;
+      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-pipe.html">View specs for this pipe →</a></p>`;
     }
 
     // Update link (if fullPageLink exists)
