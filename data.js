@@ -67,10 +67,10 @@ function diagramSVG(s){
   return `
   <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
     <rect x="${cx - w/2 - nomPad}" y="${cy - t/2 - nomPad}" width="${w+nomPad*2}" height="${t+nomPad*2}"
-          fill="none" stroke="#3D5A73" stroke-width="2" stroke-dasharray="6,5"/>
+          fill="none" stroke="#6E93B8" stroke-width="2" stroke-dasharray="6,5"/>
     <rect x="${cx - w/2}" y="${cy - t/2}" width="${w}" height="${t}" fill="#E8622C" opacity="0.85"/>
-    <text x="150" y="20" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#3D5A73">dashed = nominal</text>
-    <text x="150" y="166" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" font-weight="600" fill="#C44E1F">solid = actual</text>
+    <text x="150" y="20" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#6E93B8">dashed = nominal</text>
+    <text x="150" y="166" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" font-weight="600" fill="#E8622C">solid = actual</text>
   </svg>`;
 }
 
