@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Embed a Lumber Size Widget on Your Site | TrueSizeLumber</title>
+<meta name="description" content="Free embeddable widget showing actual lumber dimensions — pick a size, copy the iframe code, and drop it into your blog, forum post, or project page.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KN65R6DJW8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KN65R6DJW8');
+</script>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5074081081565535" crossorigin="anonymous"></script>
+<style>
+  .embed-wrap{ max-width:640px; margin:0 auto; padding:0 24px 40px; }
+  .embed-preview{
+    background:var(--cream); border:1px dashed var(--sawdust); border-radius:8px;
+    padding:24px; display:flex; justify-content:center; margin:20px 0;
+  }
+  .embed-code{
+    position:relative; background:var(--walnut); color:#EDE4D3; border-radius:8px;
+    padding:18px 20px; font-family:var(--mono-font); font-size:13px; overflow-x:auto;
+    white-space:pre; margin-bottom:12px;
+  }
+  .copy-btn{
+    background:var(--orange); color:var(--white); border:none; border-radius:6px;
+    padding:10px 20px; font-family:var(--heading-font); font-size:14px; cursor:pointer;
+  }
+  .copy-btn:hover{ background:var(--orange-dark); }
+  .copy-btn.copied{ background:#2B7A2B; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">True<span>Size</span>Lumber</a>
+  <nav>
+    <a href="index.html#lookup">Size Lookup</a>
+    <a href="cut-list-calculator.html">Cut List</a>
+    <a href="guess-the-size-quiz.html">Quiz</a>
+  </nav>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> / Embed a Size Widget</div>
+
+<div class="hero" style="grid-template-columns:1fr; max-width:760px;">
+  <div>
+    <div class="eyebrow">Free Widget</div>
+    <h1>Embed a Lumber Size Widget</h1>
+    <p>Writing a blog post, forum answer, or project page that mentions a lumber size? Drop in this small widget so readers see the actual dimensions without leaving your page. Pick a size, copy the code, done.</p>
+  </div>
+</div>
+
+<div class="embed-wrap">
+  <div class="field">
+    <label for="widgetSize">Lumber size</label>
+    <select id="widgetSize"></select>
+  </div>
+
+  <div class="embed-preview">
+    <iframe id="previewFrame" width="340" height="76" style="border:none;" title="Lumber size widget preview"></iframe>
+  </div>
+
+  <div class="embed-code" id="embedCode"></div>
+  <button class="copy-btn" id="copyBtn">Copy embed code</button>
+</div>
+
+<footer>
+  TrueSizeLumber — actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
+  Standard softwood dimensions per the American Softwood Lumber Standard. Always confirm against your specific supplier for critical work.
+  <div class="footer-links"><a href="about.html">About</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="contact.html">Contact</a></div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  const select = document.getElementById("widgetSize");
+  populateSizeSelect(select);
+  select.value = "2x4";
+
+  const frame = document.getElementById("previewFrame");
+  const codeEl = document.getElementById("embedCode");
+  const copyBtn = document.getElementById("copyBtn");
+
+  function updateEmbed(){
+    const key = select.value;
+    const src = `https://truesizelumber.com/widget.html?size=${encodeURIComponent(key)}`;
+    frame.src = `widget.html?size=${encodeURIComponent(key)}`;
+    codeEl.textContent = `<iframe src="${src}" width="340" height="76" style="border:none;" title="Actual lumber size: ${nominalLabel(key)}"></iframe>`;
+  }
+
+  select.addEventListener("change", updateEmbed);
+  updateEmbed();
+
+  copyBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(codeEl.textContent);
+      copyBtn.textContent = "Copied!";
+      copyBtn.classList.add("copied");
+      setTimeout(() => { copyBtn.textContent = "Copy embed code"; copyBtn.classList.remove("copied"); }, 1800);
+    } catch (e) {
+      // Fallback for browsers/contexts where clipboard API is unavailable
+      const range = document.createRange();
+      range.selectNode(codeEl);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      copyBtn.textContent = "Select & copy shown above";
+    }
+  });
+</script>
+</body>
+</html>

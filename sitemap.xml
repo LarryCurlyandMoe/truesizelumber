@@ -31,6 +31,26 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://truesizelumber.com/engineered-lumber-sizes.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/cut-list-calculator.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/guess-the-size-quiz.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/embed-widget.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://truesizelumber.com/guides-board-feet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -323,6 +343,74 @@
   </url>
   <url>
     <loc>https://truesizelumber.com/4-schedule40-pipe.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 5/4 Decking -->
+  <url>
+    <loc>https://truesizelumber.com/5-4x4-lumber.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/5-4x6-lumber.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Structural Screws -->
+  <url>
+    <loc>https://truesizelumber.com/5-16-structural-screw-4-fastener.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/1-4-structural-screw-6-fastener.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- PEX Pipe -->
+  <url>
+    <loc>https://truesizelumber.com/3-8-pex-pipe.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/1-2-pex-pipe.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/3-4-pex-pipe.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/1-pex-pipe.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ABS Pipe -->
+  <url>
+    <loc>https://truesizelumber.com/1.5-abs-pipe.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/2-abs-pipe.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/3-abs-pipe.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/4-abs-pipe.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

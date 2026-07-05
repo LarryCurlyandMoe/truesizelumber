@@ -43,10 +43,18 @@ const SIZES = {
   "6x6":  { t: 5.5,  w: 5.5,   tFrac: "5½", wFrac: "5½",
     uses: "Structural posts, porch/pergola posts, heavy fence posts",
     tip: "6x6 is often sold rough-sawn or as reclaimed timber alongside dimensional PT stock — actual size and moisture content can vary more than smaller lumber, so measure before you build around it." },
+  "5/4x4": { t: 1.0, w: 3.5,  tFrac: "1",  wFrac: "3½",
+    uses: "Narrow decking runs, deck stair treads",
+    tip: "5/4 decking is milled with eased (rounded) edges on both long sides, unlike standard 2-by lumber — that rounded edge is a deck-specific detail, not a defect." },
+  "5/4x6": { t: 1.0, w: 5.5,  tFrac: "1",  wFrac: "5½",
+    uses: "Standard deck boards — the most common decking size",
+    tip: "Despite the name, 5/4 decking is about 1\" thick, not 1¼\" — the \"5/4\" refers to the rough-sawn thickness before drying and planing, the same nominal-vs-actual gap as dimensional lumber." },
 };
 
 function nominalLabel(key){ return key.replace("x", "×"); }
 function actualLabel(s){ return `${s.tFrac}" × ${s.wFrac}"`; }
+// Turn a data key into a safe filename fragment (keys like "5/4x6" or "1/4 bolt" contain / and spaces).
+function sanitizeKey(key){ return key.replace(/\//g, "-").replace(/\s+/g, "-").toLowerCase(); }
 
 // Cross-section diagram: dashed = nominal, solid = actual
 function diagramSVG(s){
@@ -75,7 +83,7 @@ function buildSizeGrid(containerEl, activeKey, linkPattern){
     el.className = "size-btn" + (key === activeKey ? " active" : "");
     el.textContent = nominalLabel(key);
     if (linkPattern){
-      el.href = linkPattern.replace("{key}", key);
+      el.href = linkPattern.replace("{key}", sanitizeKey(key));
     } else {
       el.dataset.key = key;
     }
@@ -101,7 +109,7 @@ function buildReferenceTable(tbodyEl, highlightKey){
     const s = SIZES[key];
     const tr = document.createElement("tr");
     if (key === highlightKey) tr.className = "current-row";
-    const href = `${key}-lumber.html`;
+    const href = `${sanitizeKey(key)}-lumber.html`;
     tr.innerHTML = `<td class="nom"><a href="${href}">${nominalLabel(key)}</a></td><td class="act"><a href="${href}">${actualLabel(s)}</a></td><td class="mono"><a href="${href}">${s.t}" × ${s.w}"</a></td>`;
     tbodyEl.appendChild(tr);
   });

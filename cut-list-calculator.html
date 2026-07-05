@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cut List Optimizer: Buy the Least Lumber | TrueSizeLumber</title>
+<meta name="description" content="Enter the cut lengths you need and your stock board length — this tool figures out the fewest boards to buy and lays out exactly what to cut from each one, accounting for saw kerf.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KN65R6DJW8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KN65R6DJW8');
+</script>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5074081081565535" crossorigin="anonymous"></script>
+<style>
+  .cut-rows{ width:100%; border-collapse:collapse; margin-bottom:14px; }
+  .cut-rows th{ text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--walnut); padding:6px 8px; }
+  .cut-rows td{ padding:4px 8px; }
+  .cut-rows input{
+    width:100%; box-sizing:border-box; padding:8px 10px; border:1px solid var(--sawdust);
+    border-radius:5px; font-family:var(--mono-font); font-size:14px; background:var(--white);
+  }
+  .remove-row{
+    background:none; border:none; color:var(--orange-dark); font-size:20px; cursor:pointer;
+    line-height:1; padding:4px 8px;
+  }
+  .add-row-btn{
+    background:var(--white); border:1px dashed var(--blue-light); color:var(--blue);
+    border-radius:6px; padding:10px 16px; font-family:var(--heading-font); font-size:14px;
+    cursor:pointer; width:100%; margin-bottom:8px;
+  }
+  .add-row-btn:hover{ background:var(--cream); }
+  .board-bar{
+    display:flex; height:38px; border-radius:5px; overflow:hidden; border:1px solid var(--sawdust);
+    margin-bottom:6px; font-family:var(--mono-font); font-size:12px;
+  }
+  .board-bar .piece{
+    background:var(--orange); color:var(--white); display:flex; align-items:center; justify-content:center;
+    border-right:2px solid var(--walnut); white-space:nowrap; overflow:hidden;
+  }
+  .board-bar .piece:last-child{ border-right:none; }
+  .board-bar .waste{
+    background:repeating-linear-gradient(45deg, var(--sawdust), var(--sawdust) 6px, var(--cream) 6px, var(--cream) 12px);
+    color:var(--charcoal); display:flex; align-items:center; justify-content:center;
+  }
+  .board-row{ margin-bottom:18px; }
+  .board-label{ font-family:var(--mono-font); font-size:12.5px; color:var(--charcoal); opacity:0.75; margin-bottom:4px; }
+  .cut-summary{
+    background:var(--white); border:1px solid var(--sawdust); border-radius:8px; padding:20px 24px; margin-bottom:24px;
+  }
+  .cut-summary .big{ font-family:var(--heading-font); font-size:28px; color:var(--orange-dark); font-weight:700; display:block; }
+  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:16px; margin-top:12px; }
+  .stat-item{ font-size:13.5px; color:var(--charcoal); }
+  .stat-item strong{ display:block; font-family:var(--mono-font); font-size:18px; color:var(--walnut); }
+  .warning-box{
+    background:#FBEAEA; border-left:4px solid #A01010; border-radius:4px; padding:14px 18px;
+    margin-bottom:16px; font-size:14px; color:#5A1010;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">True<span>Size</span>Lumber</a>
+  <nav>
+    <a href="index.html#lookup">Size Lookup</a>
+    <a href="index.html#calculators">Calculators</a>
+    <a href="guides-board-feet.html">Board Feet</a>
+  </nav>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> / Cut List Optimizer</div>
+
+<div class="hero" style="grid-template-columns:1fr; max-width:800px;">
+  <div>
+    <div class="eyebrow">Buy Less Lumber</div>
+    <h1>Cut List <span class="accent">Optimizer</span></h1>
+    <p>Every other tool on this site tells you what a board measures. This one tells you how many to buy. Enter the pieces you need to cut, your stock board length, and this figures out the fewest boards and exactly what to cut from each one — accounting for saw kerf so the math actually holds up in the shop.</p>
+  </div>
+</div>
+
+<section id="calculators">
+  <div class="section-head">
+    <h2>Your cut list</h2>
+    <div class="section-note">ENTER EVERY LENGTH YOU NEED, WITH QUANTITY</div>
+  </div>
+
+  <table class="cut-rows" id="cutRowsTable">
+    <thead>
+      <tr><th style="width:45%">Cut length (in)</th><th style="width:35%">Quantity</th><th style="width:20%"></th></tr>
+    </thead>
+    <tbody id="cutRowsBody"></tbody>
+  </table>
+  <button type="button" class="add-row-btn" id="addRowBtn">+ Add another cut length</button>
+
+  <div class="calc-grid" style="margin-top:24px;">
+    <div class="calc-card">
+      <h3>Stock &amp; saw settings</h3>
+      <div class="field-row">
+        <div class="field">
+          <label for="stockLength">Stock board length</label>
+          <select id="stockLength">
+            <option value="96">8 ft (96")</option>
+            <option value="120">10 ft (120")</option>
+            <option value="144" selected>12 ft (144")</option>
+            <option value="192">16 ft (192")</option>
+            <option value="240">20 ft (240")</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="kerf">Saw kerf / blade width (in)</label>
+          <input type="number" id="kerf" value="0.125" min="0" step="0.0625">
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-card">
+      <h3>Optional: cost estimate</h3>
+      <div class="field-row">
+        <div class="field">
+          <label for="boardSize">Board size</label>
+          <select id="boardSize"></select>
+        </div>
+        <div class="field">
+          <label for="pricePerBoard">Price per board ($)</label>
+          <input type="number" id="pricePerBoard" min="0" step="0.01" placeholder="optional">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="cutResults" style="margin-top:24px;"></div>
+</section>
+
+<div class="article">
+  <h2>How the math works</h2>
+  <p>This uses a "first-fit decreasing" packing strategy — the same general approach professional cut-list and nesting software uses for one-dimensional stock. It sorts your cut list longest-to-shortest, then places each piece onto the first board that has enough room left, opening a new board only when nothing already in progress fits. It's not always the mathematically perfect answer (that's an NP-hard problem for large lists), but it's consistently close to optimal and matches how an experienced framer would lay it out by eye.</p>
+  <p>Kerf — the width of material the saw blade actually removes — is subtracted between every two pieces cut from the same board, since that material becomes sawdust, not usable offcut. A typical circular saw blade has a kerf around ⅛" (0.125"); thin-kerf blades run closer to 3/32" (≈0.094").</p>
+</div>
+
+<footer>
+  TrueSizeLumber — actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
+  Standard softwood dimensions per the American Softwood Lumber Standard. Always confirm against your specific supplier for critical work.
+  <div class="footer-links"><a href="about.html">About</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="contact.html">Contact</a></div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  // ===== Dynamic cut-length rows =====
+  const defaultRows = [
+    { length: 24, qty: 4 },
+    { length: 36, qty: 2 },
+    { length: 60, qty: 1 }
+  ];
+
+  const rowsBody = document.getElementById("cutRowsBody");
+
+  function addRow(length, qty){
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><input type="number" class="cut-length" min="0.1" step="0.125" value="${length !== undefined ? length : ''}" placeholder="e.g. 24"></td>
+      <td><input type="number" class="cut-qty" min="1" step="1" value="${qty !== undefined ? qty : ''}" placeholder="e.g. 2"></td>
+      <td><button type="button" class="remove-row" title="Remove this row">&times;</button></td>
+    `;
+    rowsBody.appendChild(tr);
+    tr.querySelectorAll("input").forEach(el => el.addEventListener("input", scheduleCalc));
+    tr.querySelector(".remove-row").addEventListener("click", () => {
+      tr.remove();
+      scheduleCalc();
+    });
+  }
+
+  defaultRows.forEach(r => addRow(r.length, r.qty));
+
+  document.getElementById("addRowBtn").addEventListener("click", () => {
+    addRow();
+    scheduleCalc();
+  });
+
+  // ===== Board size + price inputs =====
+  populateSizeSelect(document.getElementById("boardSize"));
+  document.getElementById("boardSize").addEventListener("change", scheduleCalc);
+  document.getElementById("pricePerBoard").addEventListener("input", scheduleCalc);
+  document.getElementById("stockLength").addEventListener("change", scheduleCalc);
+  document.getElementById("kerf").addEventListener("input", scheduleCalc);
+
+  // ===== First-fit-decreasing packing =====
+  function optimizeCutList(stockLengthIn, kerfIn, pieces){
+    const items = [];
+    pieces.forEach(p => { for (let i = 0; i < p.qty; i++) items.push(p.length); });
+    items.sort((a, b) => b - a);
+
+    const bins = [];
+    const oversized = [];
+
+    items.forEach(length => {
+      if (length > stockLengthIn){
+        oversized.push(length);
+        return;
+      }
+      let placed = false;
+      for (const bin of bins){
+        const needed = bin.cuts.length > 0 ? length + kerfIn : length;
+        if (bin.remaining >= needed - 1e-9){
+          bin.remaining -= needed;
+          bin.cuts.push(length);
+          placed = true;
+          break;
+        }
+      }
+      if (!placed){
+        bins.push({ remaining: stockLengthIn - length, cuts: [length] });
+      }
+    });
+
+    return { bins, oversized };
+  }
+
+  let calcTimer = null;
+  function scheduleCalc(){
+    clearTimeout(calcTimer);
+    calcTimer = setTimeout(runCalc, 80);
+  }
+
+  function runCalc(){
+    const stockLengthIn = parseFloat(document.getElementById("stockLength").value) || 0;
+    const kerfIn = parseFloat(document.getElementById("kerf").value) || 0;
+
+    const pieces = [];
+    rowsBody.querySelectorAll("tr").forEach(tr => {
+      const length = parseFloat(tr.querySelector(".cut-length").value);
+      const qty = parseInt(tr.querySelector(".cut-qty").value, 10);
+      if (length > 0 && qty > 0) pieces.push({ length, qty });
+    });
+
+    const resultsEl = document.getElementById("cutResults");
+    if (pieces.length === 0){
+      resultsEl.innerHTML = `<p style="color:var(--charcoal); opacity:0.7;">Add at least one cut length and quantity above to see results.</p>`;
+      return;
+    }
+
+    const { bins, oversized } = optimizeCutList(stockLengthIn, kerfIn, pieces);
+
+    const totalPieces = pieces.reduce((sum, p) => sum + p.qty, 0);
+    const totalCutLength = pieces.reduce((sum, p) => sum + p.length * p.qty, 0);
+    const boardsNeeded = bins.length;
+    const totalStockLength = boardsNeeded * stockLengthIn;
+    const totalWaste = totalStockLength - totalCutLength - (totalPieces - boardsNeeded) * kerfIn;
+    const wastePct = totalStockLength > 0 ? (totalWaste / totalStockLength) * 100 : 0;
+
+    let html = "";
+
+    if (oversized.length > 0){
+      html += `<div class="warning-box"><strong>Heads up:</strong> ${oversized.length} piece(s) — ${[...new Set(oversized)].map(l => l + '"').join(", ")} — are longer than your ${stockLengthIn}" stock board and can't be cut from it. Choose a longer stock length or splice for those cuts.</div>`;
+    }
+
+    html += `<div class="cut-summary">
+      <span class="big">${boardsNeeded} board${boardsNeeded === 1 ? "" : "s"} needed</span>
+      To cut ${totalPieces} piece${totalPieces === 1 ? "" : "s"} totaling ${totalCutLength.toFixed(2)}" of usable length from ${stockLengthIn}" stock, with ${kerfIn}" kerf per cut.
+      <div class="stat-grid">
+        <div class="stat-item"><strong>${totalStockLength.toFixed(0)}"</strong>Total stock purchased</div>
+        <div class="stat-item"><strong>${totalWaste.toFixed(2)}"</strong>Total waste (offcuts + kerf)</div>
+        <div class="stat-item"><strong>${wastePct.toFixed(1)}%</strong>Waste as % of stock</div>
+      </div>
+    </div>`;
+
+    // Cost / board-feet estimate
+    const boardKey = document.getElementById("boardSize").value;
+    const pricePerBoard = parseFloat(document.getElementById("pricePerBoard").value);
+    if (boardKey && SIZES[boardKey]){
+      const r = calcBoardFeet(boardKey, stockLengthIn / 12, boardsNeeded);
+      let costLine = `${nominalLabel(boardKey)} @ ${(stockLengthIn/12).toFixed(1)}ft: ${r.totalBf.toFixed(2)} board ft total for ${boardsNeeded} board${boardsNeeded === 1 ? "" : "s"}.`;
+      if (pricePerBoard > 0){
+        const totalCost = pricePerBoard * boardsNeeded;
+        costLine += ` Estimated cost: $${totalCost.toFixed(2)} (${boardsNeeded} × $${pricePerBoard.toFixed(2)}).`;
+      }
+      html += `<div class="cut-summary" style="margin-top:-8px;">${costLine}</div>`;
+    }
+
+    // Per-board visual breakdown
+    html += `<h3 style="font-family:var(--heading-font); margin-bottom:14px;">Cutting layout</h3>`;
+    bins.forEach((bin, i) => {
+      const usedLen = bin.cuts.reduce((s, c) => s + c, 0);
+      const kerfLoss = (bin.cuts.length - 1) * kerfIn;
+      const waste = stockLengthIn - usedLen - kerfLoss;
+      html += `<div class="board-row">
+        <div class="board-label">Board ${i + 1} — cuts: ${bin.cuts.map(c => c + '"').join(", ")}${waste > 0.01 ? ` — offcut: ${waste.toFixed(2)}"` : ""}</div>
+        <div class="board-bar">`;
+      bin.cuts.forEach(c => {
+        const pct = (c / stockLengthIn) * 100;
+        html += `<div class="piece" style="flex:0 0 ${pct}%;">${c}"</div>`;
+      });
+      if (waste > 0.01){
+        const wastePctBar = (waste / stockLengthIn) * 100;
+        html += `<div class="waste" style="flex:0 0 ${wastePctBar}%;"></div>`;
+      }
+      html += `</div></div>`;
+    });
+
+    resultsEl.innerHTML = html;
+  }
+
+  runCalc();
+</script>
+</body>
+</html>

@@ -134,5 +134,77 @@ const PIPE = {
     material: "Steel Sch 40",
     uses: "Major pipelines, large diameter",
     tip: "Same as 3\" — expect grooved couplings or welded joints rather than NPT threading once you're at 4\" nominal."
+  },
+  "3/8 pex": {
+    display: "3/8\" PEX",
+    nominal: "3/8\"",
+    actualOD: "0.500\"",
+    actualID: "0.360\"",
+    material: "PEX (SDR9)",
+    uses: "Faucet and fixture supply lines, tight spaces",
+    tip: "PEX is sized by CTS (copper tube size), so its OD matches copper at the same nominal size — that's why push-to-connect fittings can bridge PEX and copper on the same line."
+  },
+  "1/2 pex": {
+    display: "1/2\" PEX",
+    nominal: "1/2\"",
+    actualOD: "0.625\"",
+    actualID: "0.475\"",
+    material: "PEX (SDR9)",
+    uses: "Standard residential supply lines, most common size",
+    tip: "Actual ID varies by manufacturer and SDR rating more than copper does — check the specific product's spec sheet if the exact ID matters for a flow calculation."
+  },
+  "3/4 pex": {
+    display: "3/4\" PEX",
+    nominal: "3/4\"",
+    actualOD: "0.875\"",
+    actualID: "0.671\"",
+    material: "PEX (SDR9)",
+    uses: "Main distribution lines, manifold systems",
+    tip: "PEX expands and contracts more with temperature than copper — leave a little slack on long straight runs instead of pulling it drum-tight."
+  },
+  "1 pex": {
+    display: "1\" PEX",
+    nominal: "1\"",
+    actualOD: "1.125\"",
+    actualID: "0.862\"",
+    material: "PEX (SDR9)",
+    uses: "Main water service, high-flow distribution",
+    tip: "PEX tolerates a minor freeze better than rigid pipe since it can flex slightly, but that's not a reason to skip insulating exposed runs — repeated freeze cycles can still split it."
+  },
+  "1.5 abs": {
+    display: "1½\" ABS",
+    nominal: "1.5\"",
+    actualOD: "1.900\"",
+    actualID: "1.720\"",
+    material: "ABS (DWV)",
+    uses: "Sink and tub drain lines, vent stacks",
+    tip: "ABS uses solvent-weld cement applied to both surfaces with no separate primer step like PVC — one reason plumbers in colder climates often prefer it."
+  },
+  "2 abs": {
+    display: "2\" ABS",
+    nominal: "2\"",
+    actualOD: "2.375\"",
+    actualID: "2.193\"",
+    material: "ABS (DWV)",
+    uses: "Standard drain lines, P-traps",
+    tip: "ABS and PVC DWV share the same OD at the same nominal size, but many jurisdictions restrict mixing them in the same drain run without an approved transition fitting — check local code."
+  },
+  "3 abs": {
+    display: "3\" ABS",
+    nominal: "3\"",
+    actualOD: "3.500\"",
+    actualID: "3.250\"",
+    material: "ABS (DWV)",
+    uses: "Toilet drain lines, branch drains",
+    tip: "ABS holds up well in freezing temperatures, which is why it's common in northern climates, but some jurisdictions restrict or ban it entirely — verify before you buy."
+  },
+  "4 abs": {
+    display: "4\" ABS",
+    nominal: "4\"",
+    actualOD: "4.500\"",
+    actualID: "4.204\"",
+    material: "ABS (DWV)",
+    uses: "Main drain lines, sewer laterals",
+    tip: "At 4\", check whether your local code requires cast iron or PVC instead of ABS for under-slab or exterior runs — acceptance varies more by jurisdiction here than with smaller DWV sizes."
   }
 };

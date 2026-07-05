@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumber Size Widget | TrueSizeLumber</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  html,body{
+    margin:0; padding:0; background:#FAF7F0; font-family:'Source Sans 3', system-ui, sans-serif;
+    color:#2B2724;
+  }
+  .widget{
+    display:flex; align-items:center; gap:14px; padding:14px 16px;
+    border:1px solid #D9C9AE; border-radius:8px; background:#FAF7F0; max-width:340px;
+  }
+  .widget-diagram{ flex:0 0 64px; }
+  .widget-diagram svg{ width:64px; height:44px; display:block; }
+  .widget-text{ flex:1; min-width:0; }
+  .widget-nom{ font-family:'Oswald', sans-serif; font-size:13px; color:#3D5A73; text-transform:uppercase; letter-spacing:.03em; }
+  .widget-act{ font-family:'IBM Plex Mono', monospace; font-size:19px; font-weight:600; color:#C44E1F; margin:2px 0 6px; }
+  .widget-link{ font-size:11.5px; color:#3A2A1D; text-decoration:none; opacity:0.75; }
+  .widget-link:hover{ text-decoration:underline; }
+  .widget-error{ font-size:13px; padding:14px; }
+</style>
+</head>
+<body>
+<div id="widgetRoot"></div>
+
+<script src="data.js"></script>
+<script>
+  function miniDiagram(s){
+    const maxDim = Math.max(s.t, s.w);
+    const scale = 34 / maxDim;
+    const w = s.w * scale, t = s.t * scale, cx = 32, cy = 22, pad = 5;
+    return `<svg viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg">
+      <rect x="${cx-w/2-pad}" y="${cy-t/2-pad}" width="${w+pad*2}" height="${t+pad*2}" fill="none" stroke="#3D5A73" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <rect x="${cx-w/2}" y="${cy-t/2}" width="${w}" height="${t}" fill="#E8622C" opacity="0.85"/>
+    </svg>`;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  let key = (params.get("size") || "2x4").trim();
+  if (!SIZES[key]) key = "2x4";
+
+  const s = SIZES[key];
+  const actual = `${s.tFrac}" × ${s.wFrac}"`;
+  const pageUrl = `https://truesizelumber.com/${sanitizeKey(key)}-lumber.html`;
+
+  document.getElementById("widgetRoot").innerHTML = `
+    <div class="widget">
+      <div class="widget-diagram">${miniDiagram(s)}</div>
+      <div class="widget-text">
+        <div class="widget-nom">Nominal ${nominalLabel(key)}</div>
+        <div class="widget-act">${actual} actual</div>
+        <a class="widget-link" href="${pageUrl}" target="_blank" rel="noopener">Actual size chart via TrueSizeLumber.com →</a>
+      </div>
+    </div>
+  `;
+</script>
+</body>
+</html>

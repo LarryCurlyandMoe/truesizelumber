@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guess the Actual Size Quiz | TrueSizeLumber</title>
+<meta name="description" content="Think you know your lumber and pipe sizes? Test yourself against the actual (not nominal) dimensions of common lumber, pipe, and nails in this quick quiz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KN65R6DJW8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KN65R6DJW8');
+</script>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5074081081565535" crossorigin="anonymous"></script>
+<style>
+  .quiz-wrap{ max-width:640px; margin:0 auto; padding:20px 24px 60px; }
+  .quiz-progress{
+    font-family:var(--mono-font); font-size:13px; color:var(--charcoal); opacity:0.7;
+    margin-bottom:10px; display:flex; justify-content:space-between;
+  }
+  .quiz-card{
+    background:var(--white); border:1px solid var(--sawdust); border-radius:10px;
+    padding:32px 28px; text-align:center;
+  }
+  .quiz-question{
+    font-family:var(--heading-font); font-size:24px; color:var(--walnut); margin-bottom:24px; line-height:1.3;
+  }
+  .quiz-options{ display:grid; gap:10px; }
+  .quiz-option{
+    background:var(--cream); border:1.5px solid var(--sawdust); border-radius:7px;
+    padding:14px 18px; font-family:var(--mono-font); font-size:16px; font-weight:600;
+    color:var(--walnut); cursor:pointer; text-align:center; transition:border-color .15s;
+  }
+  .quiz-option:hover{ border-color:var(--blue-light); }
+  .quiz-option.correct{ background:#DFF3DF; border-color:#2B7A2B; color:#1F5A1F; }
+  .quiz-option.incorrect{ background:#FBEAEA; border-color:#A01010; color:#7A1010; }
+  .quiz-option.disabled{ cursor:default; pointer-events:none; opacity:0.6; }
+  .quiz-option.disabled.correct, .quiz-option.disabled.incorrect{ opacity:1; }
+  .quiz-feedback{
+    margin-top:20px; font-size:14.5px; color:var(--charcoal); text-align:left;
+    background:var(--cream); border-left:4px solid var(--orange); border-radius:4px; padding:14px 18px;
+    display:none;
+  }
+  .quiz-next-btn{
+    margin-top:20px; background:var(--orange); color:var(--white); border:none; border-radius:6px;
+    padding:12px 28px; font-family:var(--heading-font); font-size:15px; cursor:pointer; display:none;
+  }
+  .quiz-next-btn:hover{ background:var(--orange-dark); }
+  .quiz-final .big-score{
+    font-family:var(--heading-font); font-size:56px; color:var(--orange-dark); font-weight:700; line-height:1;
+  }
+  .quiz-final .rank-label{ font-size:18px; color:var(--walnut); margin:10px 0 24px; font-weight:600; }
+  .quiz-btn-row{ display:flex; gap:12px; justify-content:center; margin-top:8px; flex-wrap:wrap; }
+  .quiz-btn-row a, .quiz-btn-row button{
+    display:inline-block; border-radius:6px; padding:12px 22px; font-family:var(--heading-font);
+    font-size:14px; text-decoration:none; cursor:pointer; border:none;
+  }
+  .quiz-btn-row .primary{ background:var(--orange); color:var(--white); }
+  .quiz-btn-row .primary:hover{ background:var(--orange-dark); }
+  .quiz-btn-row .secondary{ background:var(--white); color:var(--walnut); border:1px solid var(--sawdust) !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">True<span>Size</span>Lumber</a>
+  <nav>
+    <a href="index.html#lookup">Size Lookup</a>
+    <a href="cut-list-calculator.html">Cut List</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> / Guess the Actual Size Quiz</div>
+
+<div class="hero" style="grid-template-columns:1fr; max-width:760px;">
+  <div>
+    <div class="eyebrow">Think You Know Your Sizes?</div>
+    <h1>Guess the <span class="accent">Actual Size</span></h1>
+    <p>10 quick rounds. We give you the nominal name — a "2×4," a "1/2-inch pipe," a "16d nail" — you guess what it actually measures. No googling.</p>
+  </div>
+</div>
+
+<div class="quiz-wrap">
+  <div id="quizArea"></div>
+</div>
+
+<footer>
+  TrueSizeLumber — actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
+  Standard softwood dimensions per the American Softwood Lumber Standard. Always confirm against your specific supplier for critical work.
+  <div class="footer-links"><a href="about.html">About</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="contact.html">Contact</a></div>
+</footer>
+
+<script src="data.js"></script>
+<script src="data/fasteners.js"></script>
+<script src="data/pipe.js"></script>
+<script>
+  const TOTAL_QUESTIONS = 10;
+  const quizArea = document.getElementById("quizArea");
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function pickDistractors(pool, correctValue, count){
+    const candidates = shuffle(pool.filter(v => v !== correctValue));
+    return candidates.slice(0, count);
+  }
+
+  function buildQuestionPool(){
+    const questions = [];
+
+    // Lumber questions: actual W x T
+    const lumberAnswers = Object.keys(SIZES).map(k => actualLabel(SIZES[k]));
+    Object.keys(SIZES).forEach(key => {
+      const s = SIZES[key];
+      const correct = actualLabel(s);
+      const options = shuffle([correct, ...pickDistractors(lumberAnswers, correct, 3)]);
+      questions.push({
+        prompt: `A nominal ${nominalLabel(key)} board actually measures...`,
+        options, correct,
+        fact: s.tip || `A ${nominalLabel(key)} actually measures ${correct}.`
+      });
+    });
+
+    // Pipe questions: actual OD
+    const pipeAnswers = Object.keys(PIPE).map(k => PIPE[k].actualOD);
+    Object.keys(PIPE).forEach(key => {
+      const p = PIPE[key];
+      const correct = p.actualOD;
+      const options = shuffle([correct, ...pickDistractors(pipeAnswers, correct, 3)]);
+      questions.push({
+        prompt: `A ${p.display} pipe has an actual outer diameter of...`,
+        options, correct,
+        fact: p.tip || `${p.display} has an actual OD of ${correct}.`
+      });
+    });
+
+    // Nail length questions (penny system)
+    const nailKeys = Object.keys(FASTENERS).filter(k => FASTENERS[k].penny);
+    const nailAnswers = nailKeys.map(k => FASTENERS[k].length);
+    const paddedNailPool = [...nailAnswers, "2\"", "2.5\"", "4.5\"", "5\""];
+    nailKeys.forEach(key => {
+      const f = FASTENERS[key];
+      const correct = f.length;
+      const options = shuffle([correct, ...pickDistractors(paddedNailPool, correct, 3)]);
+      questions.push({
+        prompt: `A ${f.penny}d nail is actually how long?`,
+        options, correct,
+        fact: f.tip || `A ${f.penny}d nail is ${correct} long.`
+      });
+    });
+
+    return shuffle(questions).slice(0, TOTAL_QUESTIONS);
+  }
+
+  let quizQuestions = [];
+  let currentIndex = 0;
+  let score = 0;
+
+  function startQuiz(){
+    quizQuestions = buildQuestionPool();
+    currentIndex = 0;
+    score = 0;
+    renderQuestion();
+  }
+
+  function renderQuestion(){
+    const q = quizQuestions[currentIndex];
+    quizArea.innerHTML = `
+      <div class="quiz-progress"><span>Question ${currentIndex + 1} of ${quizQuestions.length}</span><span>Score: ${score}</span></div>
+      <div class="quiz-card">
+        <div class="quiz-question">${q.prompt}</div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-next-btn" id="quizNextBtn">${currentIndex + 1 === quizQuestions.length ? "See Results →" : "Next Question →"}</button>
+      </div>
+    `;
+    const optionsEl = document.getElementById("quizOptions");
+    q.options.forEach(opt => {
+      const btn = document.createElement("div");
+      btn.className = "quiz-option";
+      btn.textContent = opt;
+      btn.addEventListener("click", () => selectAnswer(opt));
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  function selectAnswer(chosen){
+    const q = quizQuestions[currentIndex];
+    const isCorrect = chosen === q.correct;
+    if (isCorrect) score++;
+
+    document.querySelectorAll(".quiz-option").forEach(el => {
+      el.classList.add("disabled");
+      if (el.textContent === q.correct) el.classList.add("correct");
+      else if (el.textContent === chosen) el.classList.add("incorrect");
+    });
+
+    const feedback = document.getElementById("quizFeedback");
+    feedback.style.display = "block";
+    feedback.innerHTML = `<strong>${isCorrect ? "Correct!" : "Not quite — actual size is " + q.correct + "."}</strong><br>${q.fact}`;
+
+    document.getElementById("quizNextBtn").style.display = "inline-block";
+    document.querySelector(".quiz-progress span:last-child").textContent = `Score: ${score}`;
+  }
+
+  document.addEventListener("click", (e) => {
+    if (e.target && e.target.id === "quizNextBtn"){
+      currentIndex++;
+      if (currentIndex < quizQuestions.length){
+        renderQuestion();
+      } else {
+        renderFinal();
+      }
+    }
+  });
+
+  function rankFor(score, total){
+    const pct = score / total;
+    if (pct >= 0.9) return "Certified Lumber Nerd";
+    if (pct >= 0.7) return "Solid Tradesperson Instincts";
+    if (pct >= 0.4) return "Getting There";
+    return "Time to Measure Twice";
+  }
+
+  function renderFinal(){
+    const total = quizQuestions.length;
+    const rank = rankFor(score, total);
+    quizArea.innerHTML = `
+      <div class="quiz-card quiz-final">
+        <div class="big-score">${score}/${total}</div>
+        <div class="rank-label">${rank}</div>
+        <p style="color:var(--charcoal); margin-bottom:0;">Every answer here comes straight from the reference charts on this site — if any of these surprised you, that's exactly why we built it.</p>
+        <div class="quiz-btn-row">
+          <button class="primary" id="playAgainBtn">Play Again</button>
+          <a class="secondary" href="index.html#lookup">Browse Full Reference</a>
+        </div>
+      </div>
+    `;
+    document.getElementById("playAgainBtn").addEventListener("click", startQuiz);
+  }
+
+  startQuiz();
+</script>
+</body>
+</html>

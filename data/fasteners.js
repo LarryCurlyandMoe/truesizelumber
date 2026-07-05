@@ -139,5 +139,19 @@ const FASTENERS = {
     length: "36\"",
     uses: "Concrete reinforcement, standard",
     tip: "3/8\" (#3) rebar is common for residential slabs and footings — check your local code or an engineer's spec for exact spacing before you pour."
+  },
+  "5/16 structural screw 4": {
+    display: "5/16\" Structural Screw, 4\"",
+    diameter: "5/16\"",
+    length: "4\"",
+    uses: "Ledger-to-rim attachment, multi-ply beam assembly",
+    tip: "Code-rated structural screws (like GRK RSS or Simpson Strong-Drive SDWS) are engineered to replace lag bolts in many connections without a separate pilot hole and washer — check the product's code report (ESR number) for the actual load rating rather than assuming it matches a lag bolt of the same diameter."
+  },
+  "1/4 structural screw 6": {
+    display: "1/4\" Structural Screw, 6\"",
+    diameter: "1/4\"",
+    length: "6\"",
+    uses: "Multi-ply LVL/beam fastening, deck ledger connections",
+    tip: "Structural screw brands publish load tables for specific connection types (face-to-face plies, ledger-to-band-joist, etc.) — don't substitute a generic deck screw of similar diameter, since the shank, thread, and head design are engineered for the rated load."
   }
 };
