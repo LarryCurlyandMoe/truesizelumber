@@ -37,6 +37,18 @@ if (!SIZES || !FASTENERS || !PIPE) {
 }
 
 // ===== Helper functions =====
+function escAttr(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function escJson(str) {
+  return JSON.stringify(String(str)).slice(1, -1);
+}
+
 function nominalLabel(key) {
   return key.replace("x", "×");
 }
@@ -98,12 +110,18 @@ function buildCategory(name, data, templateFile, filenamePattern) {
 
     // Determine filename
     let html = template;
-    
+    const canonicalUrl = `https://truesizelumber.com/${safeKey}-${name}.html`;
+
     // Replace common placeholders
     html = html.replace(/{{display}}/g, display);
+    html = html.replace(/{{displayAttr}}/g, escAttr(display));
+    html = html.replace(/{{displayJson}}/g, escJson(display));
     html = html.replace(/{{uses}}/g, item.uses || "");
+    html = html.replace(/{{usesAttr}}/g, escAttr(item.uses || ""));
+    html = html.replace(/{{usesJson}}/g, escJson(item.uses || ""));
     html = html.replace(/{{tip}}/g, item.tip || "");
     html = html.replace(/{{relatedLinks}}/g, relatedLinks);
+    html = html.replace(/{{canonicalUrl}}/g, canonicalUrl);
 
     // Category-specific replacements
     if (name === "lumber") {
@@ -112,6 +130,8 @@ function buildCategory(name, data, templateFile, filenamePattern) {
       html = html
         .replace(/{{nominalLabel}}/g, nominal)
         .replace(/{{actualDimensions}}/g, actual)
+        .replace(/{{actualDimensionsAttr}}/g, escAttr(actual))
+        .replace(/{{actualDimensionsJson}}/g, escJson(actual))
         .replace(/{{thickness}}/g, item.t)
         .replace(/{{width}}/g, item.w)
         .replace(/{{tFrac}}/g, item.tFrac)
@@ -127,6 +147,10 @@ function buildCategory(name, data, templateFile, filenamePattern) {
     } else if (name === "pipe") {
       html = html
         .replace(/{{nominal}}/g, item.nominal || "")
+        .replace(/{{actualODAttr}}/g, escAttr(item.actualOD || ""))
+        .replace(/{{actualODJson}}/g, escJson(item.actualOD || ""))
+        .replace(/{{actualIDAttr}}/g, escAttr(item.actualID || ""))
+        .replace(/{{actualIDJson}}/g, escJson(item.actualID || ""))
         .replace(/{{actualOD}}/g, item.actualOD || "")
         .replace(/{{actualID}}/g, item.actualID || "")
         .replace(/{{material}}/g, item.material || "");
