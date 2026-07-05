@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deck Joist Span Estimator (Not a Substitute for Code Tables) | TrueSizeLumber</title>
+<meta name="description" content="A rough, clearly-approximate starting point for deck joist spans by species, size, and spacing — with a direct link to the actual AWC DCA6 tables you need before building.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KN65R6DJW8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KN65R6DJW8');
+</script>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5074081081565535" crossorigin="anonymous"></script>
+<style>
+  .big-warning{
+    background:#3A1B1B; border:2px solid #E05252; border-radius:8px; padding:20px 24px;
+    margin-bottom:28px; font-size:15px; color:#F0A0A0;
+  }
+  .big-warning strong{ color:#FFC9C9; }
+  .estimate-box{
+    background:var(--white); border:1px solid var(--sawdust); border-radius:8px; padding:24px; margin-bottom:24px;
+  }
+  .estimate-box .big{ font-family:var(--heading-font); font-size:32px; color:var(--orange); font-weight:700; display:block; margin-bottom:6px; }
+  .estimate-box .approx-note{ font-size:13.5px; color:var(--charcoal); opacity:0.8; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo"><svg width="34" height="30" viewBox="0 0 92 80" fill="none" aria-hidden="true"><path d="M6 68 L40 8 L74 68 Z" stroke="#6E93B8" stroke-width="5" stroke-dasharray="8,7" stroke-linejoin="round"/><path d="M40 72 L58 46 L76 72 Z" fill="#E8622C"/></svg> True<span>Size</span>Lumber</a>
+  <nav>
+    <a href="index.html#lookup">Size Lookup</a>
+    <a href="cut-list-calculator.html">Cut List</a>
+    <a href="stair-calculator.html">Stairs</a>
+  </nav>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> / Deck Joist Span Estimator</div>
+
+<div class="hero" style="grid-template-columns:1fr; max-width:800px;">
+  <div>
+    <div class="eyebrow">Ballpark Only</div>
+    <h1>Deck Joist Span <span class="accent">Estimator</span></h1>
+    <p>Pick a species group, size, and spacing to get a rough sense of typical deck joist spans — enough to sanity-check a plan before you go looking for the real table. This is deliberately not precise to the inch, and it is not the table you cite for a permit.</p>
+  </div>
+</div>
+
+<div class="big-warning">
+  <strong>Read this before you use the number below:</strong> These are rounded, commonly-published reference figures for a standard residential deck load (40 psf live + 10 psf dead, L/360 deflection) — not a calculation of your specific joists, grade, or local code. Actual allowable spans depend on exact grade, moisture condition, and amendments your jurisdiction may have made. For anything you're actually going to build, pull the current span table from the <a href="https://awc.org/publications/dca6/" target="_blank" rel="noopener">American Wood Council's DCA6 guide</a> (free PDF) or your local building department, or have a permit-holding contractor or engineer confirm it.
+</div>
+
+<section id="calculators">
+  <div class="section-head">
+    <h2>Rough estimate</h2>
+    <div class="section-note">SOUTHERN PINE OR DOUGLAS FIR-LARCH / HEM-FIR, NO.2 GRADE</div>
+  </div>
+
+  <div class="calc-grid">
+    <div class="calc-card">
+      <h3>Your setup</h3>
+      <div class="field-row">
+        <div class="field">
+          <label for="species">Species group</label>
+          <select id="species">
+            <option value="syp">Southern Pine</option>
+            <option value="dfhf">Douglas Fir-Larch / Hem-Fir</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="joistSize">Joist size</label>
+          <select id="joistSize">
+            <option value="2x6">2×6</option>
+            <option value="2x8">2×8</option>
+            <option value="2x10" selected>2×10</option>
+            <option value="2x12">2×12</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="spacing">Joist spacing (on-center)</label>
+          <select id="spacing">
+            <option value="12">12"</option>
+            <option value="16" selected>16"</option>
+            <option value="24">24"</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-card">
+      <h3>What this assumes</h3>
+      <div class="calc-sub">Standard residential deck live load (40 psf) plus 10 psf dead load, No.2 grade lumber, simple single-span joists (not cantilevered or multi-span). Change any of those and the real number changes too.</div>
+    </div>
+  </div>
+
+  <div id="spanResults" style="margin-top:24px;"></div>
+</section>
+
+<div class="article">
+  <h2>Why this isn't just a bigger table</h2>
+  <p>Real span tables (like AWC's DCA6, which most US building departments reference for deck construction) break spans down by exact grade, wet-service vs. dry-service lumber, cantilever length, and multiple-span conditions — dozens of combinations per species. Compressing that into a quick lookup means picking one representative grade and load case and rounding generously, which is exactly why this tool says "estimator," not "calculator." It's meant to answer "is a 2×10 in the right ballpark for this span, or do I need a 2×12" before you go pull the real table — not to be the last word.</p>
+  <h2>What actually changes your real answer</h2>
+  <ul>
+    <li><strong>Grade:</strong> No.1 and Select Structural grades span further than No.2; a lower grade (No.3, stud grade) spans less.</li>
+    <li><strong>Wet vs. dry service:</strong> Decks are exterior, wood-to-weather structures — tables for wet service conditions are typically more conservative than interior floor tables, which is part of why deck joist spans look shorter than floor joist spans of the same size.</li>
+    <li><strong>Cantilevers:</strong> Overhanging the beam past the last support changes the math and typically shortens the allowable back-span.</li>
+    <li><strong>Local amendments:</strong> Snow load, seismic considerations, and local code amendments can all tighten these numbers further depending on where you live.</li>
+  </ul>
+</div>
+
+<footer>
+  TrueSizeLumber — actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
+  Standard softwood dimensions per the American Softwood Lumber Standard. Always confirm against your specific supplier for critical work.
+  <div class="footer-links"><a href="about.html">About</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="contact.html">Contact</a></div>
+  <div class="footer-links" style="margin-top:6px; font-size:11.5px; opacity:0.8;">As an Amazon Associate, we earn from qualifying purchases.</div>
+</footer>
+
+<script>
+  // Rounded, approximate reference spans (feet) — No.2 grade, 40 psf live + 10 psf dead, wet service.
+  // Deliberately conservative (rounded down) and NOT a substitute for the current AWC DCA6 table.
+  const SPAN_DATA = {
+    syp: {
+      "2x6":  { 12: 11.0, 16: 10.0, 24: 8.0 },
+      "2x8":  { 12: 14.5, 16: 13.0, 24: 10.5 },
+      "2x10": { 12: 18.0, 16: 16.0, 24: 13.0 },
+      "2x12": { 12: 20.5, 16: 18.5, 24: 15.0 }
+    },
+    dfhf: {
+      "2x6":  { 12: 10.0, 16: 9.5, 24: 7.5 },
+      "2x8":  { 12: 13.5, 16: 12.0, 24: 10.0 },
+      "2x10": { 12: 17.0, 16: 15.0, 24: 12.0 },
+      "2x12": { 12: 19.5, 16: 17.5, 24: 14.0 }
+    }
+  };
+  const SPECIES_LABEL = { syp: "Southern Pine", dfhf: "Douglas Fir-Larch / Hem-Fir" };
+
+  const speciesEl = document.getElementById("species");
+  const joistSizeEl = document.getElementById("joistSize");
+  const spacingEl = document.getElementById("spacing");
+  const resultsEl = document.getElementById("spanResults");
+
+  function feetInches(feet){
+    const wholeFt = Math.floor(feet);
+    const inches = Math.round((feet - wholeFt) * 12);
+    return inches === 0 ? `${wholeFt}'` : `${wholeFt}'-${inches}"`;
+  }
+
+  function calc(){
+    const species = speciesEl.value;
+    const size = joistSizeEl.value;
+    const spacing = spacingEl.value;
+    const spanFt = SPAN_DATA[species][size][spacing];
+
+    resultsEl.innerHTML = `
+      <div class="estimate-box">
+        <span class="big">~${feetInches(spanFt)}</span>
+        <div class="approx-note">Rough single-span estimate for ${size} ${SPECIES_LABEL[species]}, No.2 grade, at ${spacing}" on-center — rounded down, not exact. Verify against the current DCA6 table before finalizing.</div>
+      </div>
+    `;
+  }
+
+  [speciesEl, joistSizeEl, spacingEl].forEach(el => el.addEventListener("change", calc));
+  calc();
+</script>
+</body>
+</html>

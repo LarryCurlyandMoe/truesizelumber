@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stair Calculator: Rise, Run &amp; Stringer Length | TrueSizeLumber</title>
+<meta name="description" content="Enter total rise and get the number of steps, actual riser height, tread run, stringer length, and a code-compliance check against IRC max riser/min tread rules.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KN65R6DJW8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KN65R6DJW8');
+</script>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5074081081565535" crossorigin="anonymous"></script>
+<style>
+  .stair-summary{
+    background:var(--white); border:1px solid var(--sawdust); border-radius:8px; padding:20px 24px; margin-bottom:24px;
+  }
+  .stair-summary .big{ font-family:var(--heading-font); font-size:28px; color:var(--orange); font-weight:700; display:block; }
+  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:16px; margin-top:12px; }
+  .stat-item{ font-size:13.5px; color:var(--charcoal); }
+  .stat-item strong{ display:block; font-family:var(--mono-font); font-size:18px; color:var(--walnut); }
+  .step-row{ display:flex; align-items:center; gap:12px; }
+  .step-row select{ width:auto; flex:0 0 auto; padding:9px 12px; }
+  .warning-box{
+    background:#3A1B1B; border-left:4px solid #E05252; border-radius:4px; padding:14px 18px;
+    margin-bottom:16px; font-size:14px; color:#F0A0A0;
+  }
+  .ok-box{
+    background:#1B3324; border-left:4px solid #4CAF50; border-radius:4px; padding:14px 18px;
+    margin-bottom:16px; font-size:14px; color:#8FDB9A;
+  }
+  .stringer-diagram{ background:var(--white); border:1px solid var(--sawdust); border-radius:8px; padding:20px; margin-top:20px; overflow-x:auto; }
+  .stringer-diagram svg{ display:block; margin:0 auto; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo"><svg width="34" height="30" viewBox="0 0 92 80" fill="none" aria-hidden="true"><path d="M6 68 L40 8 L74 68 Z" stroke="#6E93B8" stroke-width="5" stroke-dasharray="8,7" stroke-linejoin="round"/><path d="M40 72 L58 46 L76 72 Z" fill="#E8622C"/></svg> True<span>Size</span>Lumber</a>
+  <nav>
+    <a href="index.html#lookup">Size Lookup</a>
+    <a href="cut-list-calculator.html">Cut List</a>
+    <a href="deck-span-estimator.html">Span Estimator</a>
+  </nav>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> / Stair Calculator</div>
+
+<div class="hero" style="grid-template-columns:1fr; max-width:800px;">
+  <div>
+    <div class="eyebrow">Rise, Run &amp; Stringer Length</div>
+    <h1>Stair <span class="accent">Calculator</span></h1>
+    <p>Enter the total height you need to climb and this works out how many steps you need, the actual riser height once it's split evenly, the tread run, the stringer length to cut, and whether it clears the two IRC rules that trip people up most: max riser height and min tread depth.</p>
+  </div>
+</div>
+
+<section id="calculators">
+  <div class="section-head">
+    <h2>Your rise</h2>
+    <div class="section-note">TOTAL VERTICAL HEIGHT TO CLIMB</div>
+  </div>
+
+  <div class="calc-grid">
+    <div class="calc-card">
+      <h3>Measurements</h3>
+      <div class="field-row">
+        <div class="field">
+          <label for="totalRise">Total rise (in)</label>
+          <input type="number" id="totalRise" value="36" min="1" step="0.125">
+        </div>
+        <div class="field">
+          <label for="treadDepth">Tread depth (in)</label>
+          <input type="number" id="treadDepth" value="10" min="6" step="0.25">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="maxRiser">Max riser height (in)</label>
+          <input type="number" id="maxRiser" value="7.75" min="4" step="0.125">
+        </div>
+        <div class="field step-row">
+          <label for="riserOverride">Number of risers</label>
+          <select id="riserOverride"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-card">
+      <h3>Code baseline (IRC R311.7)</h3>
+      <div class="calc-sub">The 2018 IRC residential baseline: max riser 7¾", min tread depth 10". Many jurisdictions amend these — this is a starting point, not your local code.</div>
+      <div class="calc-output">
+        <span class="big">7¾" max riser · 10" min tread</span>
+        Riser height can't vary more than ⅜" within one flight. Always confirm your local amendments before building.
+      </div>
+    </div>
+  </div>
+
+  <div id="stairResults" style="margin-top:24px;"></div>
+</section>
+
+<div class="article">
+  <h2>How this is calculated</h2>
+  <p>You can't have a fractional step, so the math works backward from a whole number of risers: given your total rise and a maximum riser height, the minimum number of risers is <code>ceil(total rise ÷ max riser height)</code>. Splitting the total rise evenly across that many risers is what determines your actual riser height — it's very rarely a clean number like exactly 7", and that's normal.</p>
+  <p>Stringer length is the straight-line diagonal from the bottom of the first riser to the top of the last one — the same right-triangle math (<code>√(rise² + run²)</code>) as sizing a rafter, just for stairs instead of a roof. Add a bit extra when cutting your actual stringer board for the horizontal seat cuts at top and bottom.</p>
+  <p>A common comfort rule of thumb, separate from code minimums: riser height + tread depth should land around 17–18", or (2 × riser) + tread around 24–25". Stairs that are too far outside that range often feel awkward to walk even if they technically pass code.</p>
+</div>
+
+<footer>
+  TrueSizeLumber — actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
+  Standard softwood dimensions per the American Softwood Lumber Standard. Always confirm against your specific supplier for critical work.
+  <div class="footer-links"><a href="about.html">About</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="contact.html">Contact</a></div>
+  <div class="footer-links" style="margin-top:6px; font-size:11.5px; opacity:0.8;">As an Amazon Associate, we earn from qualifying purchases.</div>
+</footer>
+
+<script>
+  const totalRiseEl = document.getElementById("totalRise");
+  const treadDepthEl = document.getElementById("treadDepth");
+  const maxRiserEl = document.getElementById("maxRiser");
+  const riserOverrideEl = document.getElementById("riserOverride");
+  const resultsEl = document.getElementById("stairResults");
+
+  function minRisers(){
+    const totalRise = parseFloat(totalRiseEl.value) || 0;
+    const maxRiser = parseFloat(maxRiserEl.value) || 7.75;
+    return Math.max(1, Math.ceil(totalRise / maxRiser));
+  }
+
+  function populateRiserOptions(){
+    const min = minRisers();
+    const current = parseInt(riserOverrideEl.value, 10) || min;
+    const selected = Math.max(current, min);
+    riserOverrideEl.innerHTML = "";
+    for (let n = min; n <= min + 10; n++){
+      const opt = document.createElement("option");
+      opt.value = n;
+      opt.textContent = n + (n === min ? " (minimum)" : "");
+      if (n === selected) opt.selected = true;
+      riserOverrideEl.appendChild(opt);
+    }
+  }
+
+  function drawStringer(numRisers, riserH, treadD, totalRun, stringerLen){
+    const scale = 6;
+    const w = totalRun * scale + 60;
+    const h = (numRisers * riserH) * (scale * 0.5) + 60;
+    let path = `M 30 ${h - 30}`;
+    let x = 30, y = h - 30;
+    for (let i = 0; i < numRisers; i++){
+      y -= riserH * scale * 0.5;
+      path += ` L ${x} ${y}`;
+      if (i < numRisers - 1){
+        x += treadD * scale;
+        path += ` L ${x} ${y}`;
+      }
+    }
+    return `<svg viewBox="0 0 ${w} ${h}" width="${Math.min(w, 900)}" height="${h}" xmlns="http://www.w3.org/2000/svg">
+      <path d="${path}" fill="none" stroke="#E8622C" stroke-width="3" stroke-linejoin="round"/>
+      <text x="${w/2}" y="${h - 6}" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#8FA3BC">Total run: ${totalRun.toFixed(1)}" · Stringer: ${stringerLen.toFixed(1)}"</text>
+    </svg>`;
+  }
+
+  function calc(){
+    const totalRise = parseFloat(totalRiseEl.value) || 0;
+    const treadDepth = parseFloat(treadDepthEl.value) || 10;
+    const maxRiser = parseFloat(maxRiserEl.value) || 7.75;
+
+    populateRiserOptions();
+    const numRisers = parseInt(riserOverrideEl.value, 10) || minRisers();
+
+    if (totalRise <= 0){
+      resultsEl.innerHTML = `<p style="color:var(--charcoal); opacity:0.7;">Enter a total rise above to see results.</p>`;
+      return;
+    }
+
+    const actualRiser = totalRise / numRisers;
+    const numTreads = numRisers - 1;
+    const totalRun = numTreads * treadDepth;
+    const stringerLength = Math.sqrt(totalRise * totalRise + totalRun * totalRun);
+    const angleDeg = totalRun > 0 ? Math.atan(totalRise / totalRun) * (180 / Math.PI) : 90;
+    const comfortSum = actualRiser + treadDepth;
+
+    let html = "";
+
+    if (actualRiser > maxRiser + 0.01){
+      html += `<div class="warning-box"><strong>Riser too tall:</strong> ${actualRiser.toFixed(2)}" exceeds your ${maxRiser}" max. Increase the number of risers.</div>`;
+    } else if (treadDepth < 10){
+      html += `<div class="warning-box"><strong>Tread shallower than IRC baseline:</strong> ${treadDepth}" is under the common 10" minimum — check your local code.</div>`;
+    } else {
+      html += `<div class="ok-box"><strong>Clears the IRC baseline</strong> — ${actualRiser.toFixed(2)}" riser is under ${maxRiser}" max, ${treadDepth}" tread meets the 10" minimum. Still confirm local amendments.</div>`;
+    }
+
+    html += `<div class="stair-summary">
+      <span class="big">${numRisers} risers, ${numTreads} treads</span>
+      Actual riser height ${actualRiser.toFixed(2)}" (target was ≤ ${maxRiser}"), ${treadDepth}" tread depth, ${totalRun.toFixed(1)}" total run.
+      <div class="stat-grid">
+        <div class="stat-item"><strong>${stringerLength.toFixed(1)}"</strong>Stringer length (diagonal)</div>
+        <div class="stat-item"><strong>${angleDeg.toFixed(1)}°</strong>Stair angle from horizontal</div>
+        <div class="stat-item"><strong>${comfortSum.toFixed(1)}"</strong>Riser + tread (aim for 17–18")</div>
+      </div>
+    </div>`;
+
+    html += `<div class="stringer-diagram">${drawStringer(numRisers, actualRiser, treadDepth, totalRun, stringerLength)}</div>`;
+
+    resultsEl.innerHTML = html;
+  }
+
+  [totalRiseEl, treadDepthEl, maxRiserEl].forEach(el => el.addEventListener("input", () => { populateRiserOptions(); calc(); }));
+  riserOverrideEl.addEventListener("change", calc);
+
+  populateRiserOptions();
+  calc();
+</script>
+</body>
+</html>
