@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concrete Bag Calculator: Post Holes &amp; Footings | TrueSizeLumber</title>
+<meta name="description" content="Figure out how many 40, 60, or 80 lb bags of concrete you need for round post holes or rectangular footings, using standard bag-yield figures printed on the bag.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KN65R6DJW8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KN65R6DJW8');
+</script>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5074081081565535" crossorigin="anonymous"></script>
+<style>
+  .concrete-summary{
+    background:var(--white); border:1px solid var(--sawdust); border-radius:8px; padding:20px 24px; margin-bottom:24px;
+  }
+  .concrete-summary .big{ font-family:var(--heading-font); font-size:30px; color:var(--orange); font-weight:700; display:block; margin-bottom:4px; }
+  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:16px; margin-top:12px; }
+  .stat-item{ font-size:13.5px; color:var(--charcoal); }
+  .stat-item strong{ display:block; font-family:var(--mono-font); font-size:18px; color:var(--walnut); }
+  .note-box{
+    background:var(--white); border-left:4px solid var(--blue); border-radius:4px; padding:14px 18px;
+    margin-bottom:16px; font-size:14px; color:var(--charcoal);
+  }
+  .shape-toggle{ display:flex; gap:8px; margin-bottom:14px; }
+  .shape-toggle button{
+    flex:1; padding:10px; border:1.5px solid var(--sawdust); background:var(--white); color:var(--charcoal);
+    border-radius:5px; cursor:pointer; font-family:var(--heading-font); font-size:13px; letter-spacing:0.03em;
+  }
+  .shape-toggle button.active{ background:var(--orange); border-color:var(--orange-dark); color:var(--white); }
+  .shape-fields{ display:none; }
+  .shape-fields.active{ display:block; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo"><svg width="34" height="30" viewBox="0 0 92 80" fill="none" aria-hidden="true"><path d="M6 68 L40 8 L74 68 Z" stroke="#6E93B8" stroke-width="5" stroke-dasharray="8,7" stroke-linejoin="round"/><path d="M40 72 L58 46 L76 72 Z" fill="#E8622C"/></svg> True<span>Size</span>Lumber</a>
+  <nav>
+    <a href="index.html#lookup">Size Lookup</a>
+    <a href="stair-calculator.html">Stairs</a>
+    <a href="deck-span-estimator.html">Span Estimator</a>
+  </nav>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> / Concrete Bag Calculator</div>
+
+<div class="hero" style="grid-template-columns:1fr; max-width:800px;">
+  <div>
+    <div class="eyebrow">Post Holes &amp; Footings</div>
+    <h1>Concrete Bag <span class="accent">Calculator</span></h1>
+    <p>Enter the size and number of post holes or footings you're pouring, pick your bag size, and this works out the volume and how many bags to buy — using the yield figures printed right on the bag, not a rough guess.</p>
+  </div>
+</div>
+
+<section id="calculators">
+  <div class="section-head">
+    <h2>Your pour</h2>
+    <div class="section-note">ROUND POST HOLES OR RECTANGULAR FOOTINGS</div>
+  </div>
+
+  <div class="calc-grid">
+    <div class="calc-card">
+      <h3>Shape &amp; size</h3>
+      <div class="shape-toggle">
+        <button type="button" id="shapeRoundBtn" class="active">Round hole</button>
+        <button type="button" id="shapeRectBtn">Rectangular footing</button>
+      </div>
+
+      <div class="shape-fields active" id="roundFields">
+        <div class="field-row">
+          <div class="field">
+            <label for="holeDiameter">Diameter (in)</label>
+            <input type="number" id="holeDiameter" value="12" min="1" step="0.5">
+          </div>
+          <div class="field">
+            <label for="holeDepth">Depth (in)</label>
+            <input type="number" id="holeDepth" value="24" min="1" step="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="shape-fields" id="rectFields">
+        <div class="field-row">
+          <div class="field">
+            <label for="rectLength">Length (ft)</label>
+            <input type="number" id="rectLength" value="4" min="0.1" step="0.5">
+          </div>
+          <div class="field">
+            <label for="rectWidth">Width (ft)</label>
+            <input type="number" id="rectWidth" value="2" min="0.1" step="0.5">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="rectDepth">Depth/thickness (in)</label>
+            <input type="number" id="rectDepth" value="8" min="1" step="0.5">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="qty">Number of holes/footings</label>
+          <input type="number" id="qty" value="1" min="1" step="1">
+        </div>
+        <div class="field">
+          <label for="bagSize">Bag size</label>
+          <select id="bagSize">
+            <option value="40">40 lb (0.30 cu ft/bag)</option>
+            <option value="60" selected>60 lb (0.45 cu ft/bag)</option>
+            <option value="80">80 lb (0.60 cu ft/bag)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-card">
+      <h3>Optional: cost estimate</h3>
+      <div class="field-row">
+        <div class="field">
+          <label for="pricePerBag">Price per bag ($)</label>
+          <input type="number" id="pricePerBag" min="0" step="0.01" placeholder="optional">
+        </div>
+      </div>
+      <div class="calc-sub">Bag yield figures are the standard values printed on Quikrete/Sakrete-style concrete mix bags. Actual yield can vary slightly by brand — check your specific bag if precision matters.</div>
+    </div>
+  </div>
+
+  <div id="concreteResults" style="margin-top:24px;"></div>
+</section>
+
+<div class="article">
+  <h2>How this is calculated</h2>
+  <p>A round hole's volume is <code>π × radius² × depth</code>; a rectangular footing is just <code>length × width × depth</code>. Both get converted to cubic feet, multiplied by however many holes or footings you're pouring, and divided by the bag's yield to get a bag count, rounded up since you can't buy a fraction of a bag.</p>
+  <p>For anything larger than roughly half a cubic yard (about 40–45 bags of 60 lb mix), ready-mix delivery is usually both cheaper and a lot less physical labor than mixing that many bags by hand — this calculator will still give you the right number, but it's worth pricing out a small ready-mix load past that point.</p>
+</div>
+
+<footer>
+  TrueSizeLumber — actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
+  Standard softwood dimensions per the American Softwood Lumber Standard. Always confirm against your specific supplier for critical work.
+  <div class="footer-links"><a href="about.html">About</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="contact.html">Contact</a></div>
+  <div class="footer-links" style="margin-top:6px; font-size:11.5px; opacity:0.8;">As an Amazon Associate, we earn from qualifying purchases.</div>
+</footer>
+
+<script>
+  const BAG_YIELD = { "40": 0.30, "60": 0.45, "80": 0.60 };
+
+  const shapeRoundBtn = document.getElementById("shapeRoundBtn");
+  const shapeRectBtn = document.getElementById("shapeRectBtn");
+  const roundFields = document.getElementById("roundFields");
+  const rectFields = document.getElementById("rectFields");
+  let shape = "round";
+
+  shapeRoundBtn.addEventListener("click", () => {
+    shape = "round";
+    shapeRoundBtn.classList.add("active"); shapeRectBtn.classList.remove("active");
+    roundFields.classList.add("active"); rectFields.classList.remove("active");
+    calc();
+  });
+  shapeRectBtn.addEventListener("click", () => {
+    shape = "rect";
+    shapeRectBtn.classList.add("active"); shapeRoundBtn.classList.remove("active");
+    rectFields.classList.add("active"); roundFields.classList.remove("active");
+    calc();
+  });
+
+  const resultsEl = document.getElementById("concreteResults");
+
+  function calc(){
+    let volumeCuFtEach = 0;
+    let describeEach = "";
+
+    if (shape === "round"){
+      const diameter = parseFloat(document.getElementById("holeDiameter").value) || 0;
+      const depth = parseFloat(document.getElementById("holeDepth").value) || 0;
+      const radius = diameter / 2;
+      volumeCuFtEach = (Math.PI * radius * radius * depth) / 1728;
+      describeEach = `${diameter}" dia. × ${depth}" deep`;
+    } else {
+      const length = parseFloat(document.getElementById("rectLength").value) || 0;
+      const width = parseFloat(document.getElementById("rectWidth").value) || 0;
+      const depth = parseFloat(document.getElementById("rectDepth").value) || 0;
+      volumeCuFtEach = length * width * (depth / 12);
+      describeEach = `${length}' × ${width}' × ${depth}" deep`;
+    }
+
+    const qty = parseInt(document.getElementById("qty").value, 10) || 1;
+    const bagSize = document.getElementById("bagSize").value;
+    const yieldPerBag = BAG_YIELD[bagSize];
+    const totalVolumeCuFt = volumeCuFtEach * qty;
+    const totalVolumeCuYd = totalVolumeCuFt / 27;
+    const bagsNeeded = Math.ceil(totalVolumeCuFt / yieldPerBag);
+
+    let html = `<div class="concrete-summary">
+      <span class="big">${bagsNeeded} bags</span>
+      ${qty} × (${describeEach}) = ${totalVolumeCuFt.toFixed(2)} cu ft total, using ${bagSize} lb bags at ${yieldPerBag} cu ft each.
+      <div class="stat-grid">
+        <div class="stat-item"><strong>${totalVolumeCuFt.toFixed(2)} ft³</strong>Total volume</div>
+        <div class="stat-item"><strong>${totalVolumeCuYd.toFixed(3)} yd³</strong>In cubic yards</div>
+      </div>
+    </div>`;
+
+    const pricePerBag = parseFloat(document.getElementById("pricePerBag").value);
+    if (pricePerBag > 0){
+      const totalCost = pricePerBag * bagsNeeded;
+      html += `<div class="note-box">Estimated cost: <strong>$${totalCost.toFixed(2)}</strong> (${bagsNeeded} × $${pricePerBag.toFixed(2)}).</div>`;
+    }
+
+    if (totalVolumeCuYd > 0.5){
+      html += `<div class="note-box">That's over half a cubic yard — worth calling a local ready-mix supplier for a price on a small delivery instead of mixing ${bagsNeeded} bags by hand.</div>`;
+    }
+
+    resultsEl.innerHTML = html;
+  }
+
+  ["holeDiameter","holeDepth","rectLength","rectWidth","rectDepth","qty","pricePerBag"].forEach(id => {
+    document.getElementById(id).addEventListener("input", calc);
+  });
+  document.getElementById("bagSize").addEventListener("change", calc);
+
+  calc();
+</script>
+</body>
+</html>

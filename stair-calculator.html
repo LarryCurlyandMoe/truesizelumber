@@ -39,6 +39,24 @@
   }
   .stringer-diagram{ background:var(--white); border:1px solid var(--sawdust); border-radius:8px; padding:20px; margin-top:20px; overflow-x:auto; }
   .stringer-diagram svg{ display:block; margin:0 auto; }
+  .print-btn{
+    margin-top:16px; background:var(--white); border:1px solid var(--sawdust); color:var(--walnut);
+    border-radius:6px; padding:10px 18px; font-family:var(--heading-font); font-size:13.5px;
+    letter-spacing:0.03em; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
+  }
+  .print-btn:hover{ border-color:var(--blue-light); }
+
+  @media print{
+    header, nav, .breadcrumb, .article, footer, .print-btn { display:none !important; }
+    body{ background:#fff !important; color:#000 !important; }
+    .hero p, .hero .eyebrow{ display:none; }
+    .stair-summary, .calc-card, .stringer-diagram, .warning-box, .ok-box{
+      background:#fff !important; border:1px solid #999 !important; color:#000 !important;
+    }
+    .stair-summary .big, .stat-item strong, h1, h2, h3{ color:#000 !important; }
+    .stringer-diagram svg path{ stroke:#000 !important; }
+    .stringer-diagram svg text{ fill:#333 !important; }
+  }
 </style>
 </head>
 <body>
@@ -91,14 +109,20 @@
           <select id="riserOverride"></select>
         </div>
       </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="headroom">Available headroom (in) — optional</label>
+          <input type="number" id="headroom" placeholder="e.g. 82" min="1" step="0.25">
+        </div>
+      </div>
     </div>
 
     <div class="calc-card">
       <h3>Code baseline (IRC R311.7)</h3>
-      <div class="calc-sub">The 2018 IRC residential baseline: max riser 7¾", min tread depth 10". Many jurisdictions amend these — this is a starting point, not your local code.</div>
+      <div class="calc-sub">The 2018 IRC residential baseline: max riser 7¾", min tread depth 10", min headroom 6'-8" (80"). Many jurisdictions amend these — this is a starting point, not your local code.</div>
       <div class="calc-output">
-        <span class="big">7¾" max riser · 10" min tread</span>
-        Riser height can't vary more than ⅜" within one flight. Always confirm your local amendments before building.
+        <span class="big">7¾" riser · 10" tread · 80" headroom</span>
+        Riser height can't vary more than ⅜" within one flight. Headroom is measured vertically from the sloped line connecting the tread nosings. Always confirm your local amendments before building.
       </div>
     </div>
   </div>
@@ -125,7 +149,9 @@
   const treadDepthEl = document.getElementById("treadDepth");
   const maxRiserEl = document.getElementById("maxRiser");
   const riserOverrideEl = document.getElementById("riserOverride");
+  const headroomEl = document.getElementById("headroom");
   const resultsEl = document.getElementById("stairResults");
+  const MIN_HEADROOM = 80; // IRC R311.7.2 baseline: 6'-8"
 
   function minRisers(){
     const totalRise = parseFloat(totalRiseEl.value) || 0;
@@ -197,23 +223,37 @@
       html += `<div class="ok-box"><strong>Clears the IRC baseline</strong> — ${actualRiser.toFixed(2)}" riser is under ${maxRiser}" max, ${treadDepth}" tread meets the 10" minimum. Still confirm local amendments.</div>`;
     }
 
+    const headroom = parseFloat(headroomEl.value);
+    if (headroom > 0){
+      if (headroom < MIN_HEADROOM){
+        html += `<div class="warning-box"><strong>Headroom too tight:</strong> ${headroom}" is under the ${MIN_HEADROOM}" (6'-8") IRC baseline — you'll likely need to raise the header, lower the stair opening, or shift where the stair lands.</div>`;
+      } else {
+        html += `<div class="ok-box"><strong>Headroom clears the baseline</strong> — ${headroom}" is at or above the ${MIN_HEADROOM}" (6'-8") minimum.</div>`;
+      }
+    }
+
+    const angleNote = angleDeg < 30 ? "gentler than typical (30–35° is common)" : angleDeg > 35 ? "steeper than typical (30–35° is common)" : "within the typical comfortable range";
+
     html += `<div class="stair-summary">
       <span class="big">${numRisers} risers, ${numTreads} treads</span>
       Actual riser height ${actualRiser.toFixed(2)}" (target was ≤ ${maxRiser}"), ${treadDepth}" tread depth, ${totalRun.toFixed(1)}" total run.
       <div class="stat-grid">
         <div class="stat-item"><strong>${stringerLength.toFixed(1)}"</strong>Stringer length (diagonal)</div>
-        <div class="stat-item"><strong>${angleDeg.toFixed(1)}°</strong>Stair angle from horizontal</div>
+        <div class="stat-item"><strong>${angleDeg.toFixed(1)}°</strong>Stair angle — ${angleNote}</div>
         <div class="stat-item"><strong>${comfortSum.toFixed(1)}"</strong>Riser + tread (aim for 17–18")</div>
       </div>
     </div>`;
 
     html += `<div class="stringer-diagram">${drawStringer(numRisers, actualRiser, treadDepth, totalRun, stringerLength)}</div>`;
 
+    html += `<button type="button" class="print-btn" onclick="window.print()">Print this cut sheet</button>`;
+
     resultsEl.innerHTML = html;
   }
 
   [totalRiseEl, treadDepthEl, maxRiserEl].forEach(el => el.addEventListener("input", () => { populateRiserOptions(); calc(); }));
   riserOverrideEl.addEventListener("change", calc);
+  headroomEl.addEventListener("input", calc);
 
   populateRiserOptions();
   calc();

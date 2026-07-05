@@ -138,7 +138,7 @@ const FASTENERS = {
     diameter: "3/8\"",
     length: "36\"",
     uses: "Concrete reinforcement, standard",
-    tip: "3/8\" (#3) rebar is common for residential slabs and footings — check your local code or an engineer's spec for exact spacing before you pour."
+    tip: "3/8\" (#3) rebar is common for residential slabs and footings — check your local code or an engineer's spec for exact spacing before you pour. The <a href=\"concrete-calculator.html\">Concrete Bag Calculator</a> works out how many bags you'll need for the pour itself."
   },
   "5/16 structural screw 4": {
     display: "5/16\" Structural Screw, 4\"",

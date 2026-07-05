@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fraction to Decimal (and mm) Converter | TrueSizeLumber</title>
+<meta name="description" content="Convert any inch fraction to decimal and millimeters, or a decimal measurement to the nearest 16th or 32nd of an inch — plus a full 1/16ths reference chart.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KN65R6DJW8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KN65R6DJW8');
+</script>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5074081081565535" crossorigin="anonymous"></script>
+<style>
+  .convert-summary{
+    background:var(--white); border:1px solid var(--sawdust); border-radius:8px; padding:20px 24px; margin-bottom:8px;
+  }
+  .convert-summary .big{ font-family:var(--mono-font); font-size:26px; color:var(--orange); font-weight:700; display:block; }
+  .frac-input-row{ display:flex; align-items:center; gap:8px; }
+  .frac-input-row input{ width:100%; }
+  .frac-slash{ font-family:var(--mono-font); font-size:20px; color:var(--charcoal); opacity:0.6; }
+  .ref-table-wrap{ overflow-x:auto; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo"><svg width="34" height="30" viewBox="0 0 92 80" fill="none" aria-hidden="true"><path d="M6 68 L40 8 L74 68 Z" stroke="#6E93B8" stroke-width="5" stroke-dasharray="8,7" stroke-linejoin="round"/><path d="M40 72 L58 46 L76 72 Z" fill="#E8622C"/></svg> True<span>Size</span>Lumber</a>
+  <nav>
+    <a href="index.html#lookup">Size Lookup</a>
+    <a href="concrete-calculator.html">Concrete</a>
+    <a href="metric-lumber-sizes.html">Metric</a>
+  </nav>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> / Fraction to Decimal Converter</div>
+
+<div class="hero" style="grid-template-columns:1fr; max-width:800px;">
+  <div>
+    <div class="eyebrow">Inches, Decimals &amp; Millimeters</div>
+    <h1>Fraction to Decimal <span class="accent">Converter</span></h1>
+    <p>Convert a tape-measure fraction to decimal inches and millimeters, or go the other way — enter a decimal reading and get the nearest 16th or 32nd of an inch. Includes a full reference chart below for every 16th from 1/16" to 1".</p>
+  </div>
+</div>
+
+<section id="calculators">
+  <div class="section-head">
+    <h2>Convert</h2>
+    <div class="section-note">FRACTION ⇄ DECIMAL ⇄ MILLIMETERS</div>
+  </div>
+
+  <div class="calc-grid">
+    <div class="calc-card">
+      <h3>Fraction → decimal</h3>
+      <div class="field-row">
+        <div class="field">
+          <label for="wholeIn">Whole inches</label>
+          <input type="number" id="wholeIn" value="0" min="0" step="1">
+        </div>
+        <div class="field frac-input-row" style="align-items:end;">
+          <div style="flex:1;">
+            <label for="numIn">Numerator</label>
+            <input type="number" id="numIn" value="11" min="0" step="1">
+          </div>
+          <span class="frac-slash">/</span>
+          <div style="flex:1;">
+            <label for="denomIn">Denominator</label>
+            <input type="number" id="denomIn" value="16" min="1" step="1">
+          </div>
+        </div>
+      </div>
+      <div class="convert-summary" id="fracToDecOut"></div>
+    </div>
+
+    <div class="calc-card">
+      <h3>Decimal → nearest fraction</h3>
+      <div class="field-row">
+        <div class="field">
+          <label for="decimalIn">Decimal inches</label>
+          <input type="number" id="decimalIn" value="0.6875" min="0" step="0.0001">
+        </div>
+      </div>
+      <div class="convert-summary" id="decToFracOut"></div>
+    </div>
+  </div>
+</section>
+
+<section id="table">
+  <div class="section-head">
+    <h2>Every 16th, 0" to 1"</h2>
+    <div class="section-note">FULL REFERENCE CHART</div>
+  </div>
+  <div class="ref-table-wrap">
+    <table>
+      <thead><tr><th>Fraction</th><th>Decimal (in)</th><th>Millimeters</th></tr></thead>
+      <tbody id="refTableBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  TrueSizeLumber — actual dimensions for nominal lumber, sheet goods, and jobsite math.<br>
+  Standard softwood dimensions per the American Softwood Lumber Standard. Always confirm against your specific supplier for critical work.
+  <div class="footer-links"><a href="about.html">About</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="contact.html">Contact</a></div>
+  <div class="footer-links" style="margin-top:6px; font-size:11.5px; opacity:0.8;">As an Amazon Associate, we earn from qualifying purchases.</div>
+</footer>
+
+<script>
+  function gcd(a, b){ return b === 0 ? a : gcd(b, a % b); }
+
+  function simplifyFraction(num, denom){
+    if (num === 0) return { num: 0, denom: 1 };
+    const g = gcd(num, denom);
+    return { num: num / g, denom: denom / g };
+  }
+
+  function nearestFraction(decimalValue, denom){
+    const wholePart = Math.floor(decimalValue);
+    const frac = decimalValue - wholePart;
+    let num = Math.round(frac * denom);
+    let outWhole = wholePart;
+    if (num === denom){ num = 0; outWhole += 1; }
+    const simplified = simplifyFraction(num, denom);
+    return { whole: outWhole, num: simplified.num, denom: simplified.denom };
+  }
+
+  function formatFraction(whole, num, denom){
+    if (num === 0) return `${whole}"`;
+    return whole > 0 ? `${whole}-${num}/${denom}"` : `${num}/${denom}"`;
+  }
+
+  // ===== Fraction to decimal =====
+  const wholeInEl = document.getElementById("wholeIn");
+  const numInEl = document.getElementById("numIn");
+  const denomInEl = document.getElementById("denomIn");
+  const fracToDecOut = document.getElementById("fracToDecOut");
+
+  function updateFracToDec(){
+    const whole = parseFloat(wholeInEl.value) || 0;
+    const num = parseFloat(numInEl.value) || 0;
+    const denom = parseFloat(denomInEl.value) || 1;
+    const decimal = whole + (num / denom);
+    const mm = decimal * 25.4;
+    fracToDecOut.innerHTML = `<span class="big">${decimal.toFixed(4)}"</span>${mm.toFixed(2)} mm`;
+  }
+  [wholeInEl, numInEl, denomInEl].forEach(el => el.addEventListener("input", updateFracToDec));
+
+  // ===== Decimal to nearest fraction =====
+  const decimalInEl = document.getElementById("decimalIn");
+  const decToFracOut = document.getElementById("decToFracOut");
+
+  function updateDecToFrac(){
+    const decimal = parseFloat(decimalInEl.value) || 0;
+    const nearest16 = nearestFraction(decimal, 16);
+    const nearest32 = nearestFraction(decimal, 32);
+    const mm = decimal * 25.4;
+    decToFracOut.innerHTML = `<span class="big">${formatFraction(nearest16.whole, nearest16.num, nearest16.denom)}</span>nearest 16th — or ${formatFraction(nearest32.whole, nearest32.num, nearest32.denom)} nearest 32nd — ${mm.toFixed(2)} mm`;
+  }
+  decimalInEl.addEventListener("input", updateDecToFrac);
+
+  // ===== Reference table =====
+  const refBody = document.getElementById("refTableBody");
+  let rows = "";
+  for (let i = 1; i <= 16; i++){
+    const simplified = simplifyFraction(i, 16);
+    const label = i === 16 ? `1"` : `${simplified.num}/${simplified.denom}"`;
+    const decimal = i / 16;
+    const mm = decimal * 25.4;
+    rows += `<tr><td class="nom">${label}</td><td class="act">${decimal.toFixed(4)}"</td><td class="mono">${mm.toFixed(2)} mm</td></tr>`;
+  }
+  refBody.innerHTML = rows;
+
+  updateFracToDec();
+  updateDecToFrac();
+</script>
+</body>
+</html>
