@@ -139,7 +139,7 @@
       <div class="nominal-val" id="nominalOut">2×4</div>
       <div class="actual-label">Actual Size (what you measure)</div>
       <div class="actual-val" id="actualOut">1½" × 3½"</div>
-      <p style="margin-top:18px; font-size:14px;"><a id="fullPageLink" href="2x4-lumber.html">View full guide & calculators for this size →</a></p>
+      <p id="fullPageLinkWrap" style="margin-top:18px; font-size:14px;"><a href="2x4-lumber.html">View full guide & calculators for this size →</a></p>
     </div>
     <div class="result-diagram" id="diagramOut"></div>
   </div>
@@ -318,6 +318,14 @@
     });
   });
 
+  // Determine an item's actual category by key, regardless of which filter tab is active
+  // (needed because "all" isn't a real key in allData — each item still belongs to one real category).
+  function categoryOf(key) {
+    if (key in FASTENERS) return "fastener";
+    if (key in PIPE) return "pipe";
+    return "lumber";
+  }
+
   // ===== Rebuild size grid for current category =====
   function rebuildSizeGrid() {
     const grid = document.getElementById("sizeGrid");
@@ -329,7 +337,7 @@
       btn.className = "size-btn";
       btn.textContent = items[key].display || key;
       btn.dataset.key = key;
-      btn.addEventListener("click", () => selectSize(key, currentCategory));
+      btn.addEventListener("click", () => selectSize(key, categoryOf(key)));
       grid.appendChild(btn);
     });
   }
@@ -352,22 +360,20 @@
       const s = item;
       document.getElementById("actualOut").textContent = `${s.tFrac}" × ${s.wFrac}"`;
       document.getElementById("diagramOut").innerHTML = diagramSVG(s);
-      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-lumber.html">View full specs for this size →</a></p>`;
+      detailsHtml = `<a href="${sanitizeKey(key)}-lumber.html">View full specs for this size →</a>`;
     } else if (category === "fastener") {
       document.getElementById("actualOut").textContent = item.uses || "";
       document.getElementById("diagramOut").innerHTML = `<div style="text-align:center; padding:20px;"><strong>${item.display}</strong></div>`;
-      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-fastener.html">View specs for this fastener →</a></p>`;
+      detailsHtml = `<a href="${sanitizeKey(key)}-fastener.html">View specs for this fastener →</a>`;
     } else if (category === "pipe") {
       document.getElementById("actualOut").textContent = `OD: ${item.actualOD}, ID: ${item.actualID}`;
       document.getElementById("diagramOut").innerHTML = `<div style="text-align:center; padding:20px;"><strong>${item.material}</strong></div>`;
-      detailsHtml = `<p style="margin-top:18px; font-size:14px;"><a href="${sanitizeKey(key)}-pipe.html">View specs for this pipe →</a></p>`;
+      detailsHtml = `<a href="${sanitizeKey(key)}-pipe.html">View specs for this pipe →</a>`;
     }
 
-    // Update link (if fullPageLink exists)
-    const linkElement = document.getElementById("fullPageLink");
-    if (linkElement && linkElement.parentElement) {
-      linkElement.parentElement.innerHTML = detailsHtml;
-    }
+    // This wrapper's own id is stable across re-renders (unlike a wrapped <a>'s id, which
+    // would be destroyed the moment its parent's innerHTML is first replaced).
+    document.getElementById("fullPageLinkWrap").innerHTML = detailsHtml;
   }
 
   // ===== Project calculators =====
