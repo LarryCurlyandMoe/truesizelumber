@@ -102,6 +102,7 @@ function buildCategory(name, data, templateFile, filenamePattern) {
     // Replace common placeholders
     html = html.replace(/{{display}}/g, display);
     html = html.replace(/{{uses}}/g, item.uses || "");
+    html = html.replace(/{{tip}}/g, item.tip || "");
     html = html.replace(/{{relatedLinks}}/g, relatedLinks);
 
     // Category-specific replacements

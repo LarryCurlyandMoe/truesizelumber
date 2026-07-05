@@ -7,6 +7,23 @@
     <priority>1.0</priority>
   </url>
 
+  <!-- Site Pages -->
+  <url>
+    <loc>https://truesizelumber.com/about.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/contact.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://truesizelumber.com/privacy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
   <!-- SEO Content Pages -->
   <url>
     <loc>https://truesizelumber.com/why-lumber-isnt-the-size-it-says.html</loc>
@@ -250,7 +267,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://truesizelumber.com/1-5-pvc-pipe.html</loc>
+    <loc>https://truesizelumber.com/1.5-pvc-pipe.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -290,7 +307,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://truesizelumber.com/1-5-schedule40-pipe.html</loc>
+    <loc>https://truesizelumber.com/1.5-schedule40-pipe.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
