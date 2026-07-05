@@ -359,8 +359,10 @@ tbody td{
 }
 tbody tr:last-child td{border-bottom:none;}
 tbody tr.current-row{ background: rgba(232,98,44,0.08); }
+tbody tr:hover{ background: rgba(61,90,115,0.06); }
 td.nom{font-family:var(--heading-font); font-weight:600; color:var(--walnut);}
 td.act{font-family:var(--mono-font); color:var(--orange-dark); font-weight:600;}
+tbody td a{ color:inherit; text-decoration:none; display:block; }
 
 /* ===== Related links ===== */
 .related-grid{

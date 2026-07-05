@@ -94,13 +94,15 @@ function populateSizeSelect(selectEl){
 }
 
 // Build the full reference table. highlightKey adds a subtle highlight row.
+// Each row links to that size's full guide page, so the chart doubles as navigation.
 function buildReferenceTable(tbodyEl, highlightKey){
   tbodyEl.innerHTML = "";
   Object.keys(SIZES).forEach(key => {
     const s = SIZES[key];
     const tr = document.createElement("tr");
     if (key === highlightKey) tr.className = "current-row";
-    tr.innerHTML = `<td class="nom">${nominalLabel(key)}</td><td class="act">${actualLabel(s)}</td><td class="mono">${s.t}" × ${s.w}"</td>`;
+    const href = `${key}-lumber.html`;
+    tr.innerHTML = `<td class="nom"><a href="${href}">${nominalLabel(key)}</a></td><td class="act"><a href="${href}">${actualLabel(s)}</a></td><td class="mono"><a href="${href}">${s.t}" × ${s.w}"</a></td>`;
     tbodyEl.appendChild(tr);
   });
 }
