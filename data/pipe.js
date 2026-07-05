@@ -7,7 +7,7 @@ const PIPE = {
     actualID: "0.602\"",
     material: "PVC",
     uses: "Cold water, irrigation, DWV",
-    tip: "PVC needs primer (usually purple) before cement on most pressure applications — skipping primer is a common DIY mistake and a common cause of joint failure."
+    tip: "PVC needs <a href=\"https://www.amazon.com/s?k=PVC+pipe+primer+and+cement&tag=truesizelumber-20\" target=\"_blank\" rel=\"nofollow sponsored noopener\">primer (usually purple)</a> before cement on most pressure applications — skipping primer is a common DIY mistake and a common cause of joint failure."
   },
   "3/4 pvc": {
     display: "3/4\" PVC",
@@ -61,7 +61,7 @@ const PIPE = {
     actualID: "0.795\"",
     material: "Copper Type M",
     uses: "Main water line, plumbing",
-    tip: "For soldered joints, the pipe and fitting need to be clean and fluxed — a dull or oxidized surface is the most common cause of a leaking joint."
+    tip: "For soldered joints, the pipe and fitting need to be clean and coated with <a href=\"https://www.amazon.com/s?k=plumbing+soldering+flux&tag=truesizelumber-20\" target=\"_blank\" rel=\"nofollow sponsored noopener\">flux</a> — a dull or oxidized surface is the most common cause of a leaking joint."
   },
   "1 copper": {
     display: "1\" Copper (Type M)",
@@ -70,7 +70,7 @@ const PIPE = {
     actualID: "1.025\"",
     material: "Copper Type M",
     uses: "Large plumbing runs",
-    tip: "Larger copper takes more heat to solder properly — a small torch can struggle to bring a 1\" fitting to even temperature all the way around."
+    tip: "Larger copper takes more heat to solder properly — a small <a href=\"https://www.amazon.com/s?k=propane+soldering+torch&tag=truesizelumber-20\" target=\"_blank\" rel=\"nofollow sponsored noopener\">torch</a> can struggle to bring a 1\" fitting to even temperature all the way around."
   },
   "1/2 schedule40": {
     display: "1/2\" Schedule 40 Steel",
@@ -142,7 +142,7 @@ const PIPE = {
     actualID: "0.360\"",
     material: "PEX (SDR9)",
     uses: "Faucet and fixture supply lines, tight spaces",
-    tip: "PEX is sized by CTS (copper tube size), so its OD matches copper at the same nominal size — that's why push-to-connect fittings can bridge PEX and copper on the same line."
+    tip: "PEX is sized by CTS (copper tube size), so its OD matches copper at the same nominal size — that's why <a href=\"https://www.amazon.com/s?k=PEX+push+to+connect+fittings&tag=truesizelumber-20\" target=\"_blank\" rel=\"nofollow sponsored noopener\">push-to-connect fittings</a> can bridge PEX and copper on the same line."
   },
   "1/2 pex": {
     display: "1/2\" PEX",
@@ -178,7 +178,7 @@ const PIPE = {
     actualID: "1.720\"",
     material: "ABS (DWV)",
     uses: "Sink and tub drain lines, vent stacks",
-    tip: "ABS uses solvent-weld cement applied to both surfaces with no separate primer step like PVC — one reason plumbers in colder climates often prefer it."
+    tip: "ABS uses <a href=\"https://www.amazon.com/s?k=ABS+pipe+cement&tag=truesizelumber-20\" target=\"_blank\" rel=\"nofollow sponsored noopener\">solvent-weld cement</a> applied to both surfaces with no separate primer step like PVC — one reason plumbers in colder climates often prefer it."
   },
   "2 abs": {
     display: "2\" ABS",

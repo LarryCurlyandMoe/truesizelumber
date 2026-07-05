@@ -40,7 +40,7 @@ const FASTENERS = {
     diameter: "1/2\"",
     length: "1\"",
     uses: "Heavy structural, automotive",
-    tip: "Torque specs for 1/2\" bolts vary a lot by grade (Grade 5 vs Grade 8) — check a torque chart for anything load-bearing instead of going by feel."
+    tip: "Torque specs for 1/2\" bolts vary a lot by grade (Grade 5 vs Grade 8) — check a torque chart and use a <a href=\"https://www.amazon.com/s?k=torque+wrench&tag=truesizelumber-20\" target=\"_blank\" rel=\"nofollow sponsored noopener\">torque wrench</a> for anything load-bearing instead of going by feel."
   },
   "1/2 bolt 2": {
     display: "1/2\" × 2\" Bolt",
@@ -61,7 +61,7 @@ const FASTENERS = {
     gauge: "10",
     length: "1.5\"",
     uses: "Deck screws, framing",
-    tip: "#10 is the most common deck screw gauge — use an exterior-rated coated or stainless screw outdoors; interior drywall screws will rust and snap."
+    tip: "#10 is the most common deck screw gauge — use an <a href=\"https://www.amazon.com/s?k=exterior+deck+screws&tag=truesizelumber-20\" target=\"_blank\" rel=\"nofollow sponsored noopener\">exterior-rated coated or stainless screw</a> outdoors; interior drywall screws will rust and snap."
   },
   "12 wood screw 2.5": {
     display: "#12 Wood Screw, 2½\"",
@@ -103,7 +103,7 @@ const FASTENERS = {
     diameter: "1/4\"",
     expandedDiameter: "3/4\"",
     uses: "Hanging items on drywall",
-    tip: "Standard expansion anchors like this are rated for light loads — for anything heavy (mirrors, shelving), find a stud or use a toggle-style anchor instead."
+    tip: "Standard expansion anchors like this are rated for light loads — for anything heavy (mirrors, shelving), find a stud or use a <a href=\"https://www.amazon.com/s?k=toggle+bolt+anchor&tag=truesizelumber-20\" target=\"_blank\" rel=\"nofollow sponsored noopener\">toggle-style anchor</a> instead."
   },
   "3/8 anchor": {
     display: "3/8\" Drywall Anchor",
@@ -131,7 +131,7 @@ const FASTENERS = {
     diameter: "1/4\"",
     length: "24\"",
     uses: "Concrete reinforcement, light duty",
-    tip: "Rebar should sit in the middle-to-lower third of the slab, not resting on the ground — use rebar chairs or supports to hold it up during the pour."
+    tip: "Rebar should sit in the middle-to-lower third of the slab, not resting on the ground — use <a href=\"https://www.amazon.com/s?k=rebar+chairs&tag=truesizelumber-20\" target=\"_blank\" rel=\"nofollow sponsored noopener\">rebar chairs</a> or supports to hold it up during the pour."
   },
   "3/8 rebar 36": {
     display: "3/8\" Rebar, 36\" length",
@@ -145,7 +145,7 @@ const FASTENERS = {
     diameter: "5/16\"",
     length: "4\"",
     uses: "Ledger-to-rim attachment, multi-ply beam assembly",
-    tip: "Code-rated structural screws (like GRK RSS or Simpson Strong-Drive SDWS) are engineered to replace lag bolts in many connections without a separate pilot hole and washer — check the product's code report (ESR number) for the actual load rating rather than assuming it matches a lag bolt of the same diameter."
+    tip: "Code-rated <a href=\"https://www.amazon.com/s?k=structural+wood+screws&tag=truesizelumber-20\" target=\"_blank\" rel=\"nofollow sponsored noopener\">structural screws</a> (like GRK RSS or Simpson Strong-Drive SDWS) are engineered to replace lag bolts in many connections without a separate pilot hole and washer — check the product's code report (ESR number) for the actual load rating rather than assuming it matches a lag bolt of the same diameter."
   },
   "1/4 structural screw 6": {
     display: "1/4\" Structural Screw, 6\"",
